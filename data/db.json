@@ -1,0 +1,630 @@
+{
+  "institutions": [
+    {
+      "id": "bms-campus",
+      "name": "BMS College of Engineering",
+      "city": "Bengaluru",
+      "adminName": "BMS Admin",
+      "createdAt": "2026-05-22T17:00:00.000Z",
+      "updatedAt": "2026-05-23T06:22:10.314Z",
+      "map": {
+        "url": "/uploads/samples/bms-campus-map.png",
+        "originalName": "bms-campus-map.png",
+        "type": "image/png",
+        "kind": "image",
+        "size": 460579
+      },
+      "media": [],
+      "bounds": {
+        "north": 12.9425,
+        "south": 12.9375,
+        "east": 77.5685,
+        "west": 77.5625
+      },
+      "pins": [
+        {
+          "id": "bms-pg-block",
+          "locationName": "PG Block",
+          "category": "Block",
+          "buildingName": "PG Block",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "Post-graduate block located in the north-west corner of the campus.",
+          "nearbyLandmark": "Trust Office",
+          "xPct": 22.236376113583116,
+          "yPct": 14.02416210645668,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-23T05:02:44.936Z"
+        },
+        {
+          "id": "bms-trust-office",
+          "locationName": "Trust Office",
+          "category": "Office",
+          "buildingName": "Administrative Wing",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "BMS Trust administrative office near the PG Block.",
+          "nearbyLandmark": "Account Section",
+          "xPct": 39.53359365058171,
+          "yPct": 22.809825942222012,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-23T04:39:58.363Z"
+        },
+        {
+          "id": "bms-account-section",
+          "locationName": "Account Section",
+          "category": "Office",
+          "buildingName": "Administrative Wing",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "Fee payment and accounts office for students.",
+          "nearbyLandmark": "Trust Office",
+          "xPct": 52.41532389045054,
+          "yPct": 24.519228626964473,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-23T04:39:56.072Z"
+        },
+        {
+          "id": "bms-science-block",
+          "locationName": "Science Block",
+          "category": "Department",
+          "buildingName": "Science Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Physics, Chemistry, and Mathematics departments with labs.",
+          "nearbyLandmark": "Central Park",
+          "xPct": 24,
+          "yPct": 44,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "bms-cs-dept",
+          "locationName": "Computer & Electronics Department",
+          "category": "Department",
+          "buildingName": "CS & ECE Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Computer Science and Electronics Engineering department with computer labs and faculty rooms.",
+          "nearbyLandmark": "Library Block",
+          "xPct": 71.32780802535473,
+          "yPct": 39.842970029931635,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-23T05:02:57.347Z"
+        },
+        {
+          "id": "bms-classroom-block",
+          "locationName": "Classroom Block",
+          "category": "Block",
+          "buildingName": "Classroom Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Main classroom block for undergraduate lectures.",
+          "nearbyLandmark": "Science Block",
+          "xPct": 24,
+          "yPct": 66,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "bms-entrance",
+          "locationName": "Main Entrance",
+          "category": "Entry Gate",
+          "buildingName": "South Gate",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "Main campus entrance gate on the south side.",
+          "nearbyLandmark": "Classroom Block",
+          "xPct": 50.709402877031614,
+          "yPct": 9.458645221268275,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-23T05:03:00.469Z"
+        },
+        {
+          "id": "bms-hospital",
+          "locationName": "BMS Hospital",
+          "category": "Block",
+          "buildingName": "BMS Hospital",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "BMS Hospital located on the eastern side of campus along Bull Temple Road.",
+          "nearbyLandmark": "Bull Temple Road",
+          "xPct": 83.00589822343547,
+          "yPct": 50.75952733234814,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-23T06:22:10.314Z"
+        }
+      ]
+    },
+    {
+      "id": "rvce-campus",
+      "name": "RV College of Engineering",
+      "city": "Bengaluru",
+      "adminName": "RVCE Admin",
+      "createdAt": "2026-05-17T16:29:01.234Z",
+      "updatedAt": "2026-05-23T05:03:13.685Z",
+      "map": {
+        "url": "/uploads/samples/rvce-campus-blueprint.png",
+        "originalName": "rvce-campus-blueprint.png",
+        "type": "image/png",
+        "kind": "image",
+        "size": 454691
+      },
+      "media": [],
+      "bounds": {
+        "north": 12.926,
+        "south": 12.92,
+        "east": 77.503,
+        "west": 77.494
+      },
+      "pins": [
+        {
+          "id": "rvce-main-entrance",
+          "locationName": "Main Entrance",
+          "category": "Entry Gate",
+          "buildingName": "North Gate",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "Primary entry with security cabin and parking area.",
+          "nearbyLandmark": "Parking, Security Cabin",
+          "xPct": 49.39447687697429,
+          "yPct": 3.489309980764985,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-23T05:03:13.685Z"
+        },
+        {
+          "id": "rvce-admin-block",
+          "locationName": "Admin Block",
+          "category": "Block",
+          "buildingName": "Admin Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Main administrative block handling admissions, exams, and campus offices.",
+          "nearbyLandmark": "Main Entrance, Civil Dept",
+          "xPct": 32.4517048962994,
+          "yPct": 24.1283807928042,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-23T05:03:11.929Z"
+        },
+        {
+          "id": "rvce-civil-dept",
+          "locationName": "Civil Department",
+          "category": "Department",
+          "buildingName": "Civil Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Civil Engineering department located next to Admin Block.",
+          "nearbyLandmark": "Admin Block, Football Ground",
+          "xPct": 58.90193433361257,
+          "yPct": 24.753809530711337,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-23T05:03:10.874Z"
+        },
+        {
+          "id": "rvce-cse-dept",
+          "locationName": "CSE Department",
+          "category": "Department",
+          "buildingName": "CSE Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Computer Science and Engineering department with labs and project rooms.",
+          "nearbyLandmark": "Health Centre, PE & Sports Dept",
+          "xPct": 75.82461173231222,
+          "yPct": 53.87619990854486,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T18:50:28.737Z"
+        },
+        {
+          "id": "rvce-eee-dept",
+          "locationName": "EEE Department",
+          "category": "Department",
+          "buildingName": "EEE Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Electrical and Electronics Engineering department.",
+          "nearbyLandmark": "ECE Dept, Kriyakalpa",
+          "xPct": 60.306777441245075,
+          "yPct": 40.99117926616928,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T18:50:00.517Z"
+        },
+        {
+          "id": "rvce-ece-dept",
+          "locationName": "ECE Department",
+          "category": "Department",
+          "buildingName": "ECE Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Electronics and Communication Engineering department.",
+          "nearbyLandmark": "EEE Dept, Thoda Aur Canteen",
+          "xPct": 56.78719217264876,
+          "yPct": 51.761024696479076,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T18:50:20.710Z"
+        },
+        {
+          "id": "rvce-library",
+          "locationName": "Library",
+          "category": "Library",
+          "buildingName": "Central Library",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Central library with extensive collection, reading halls, and digital section.",
+          "nearbyLandmark": "ISE Dept, Telecom Dept",
+          "xPct": 34,
+          "yPct": 68,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "rvce-mech-dept",
+          "locationName": "Mechanical Department",
+          "category": "Department",
+          "buildingName": "Mechanical Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Mechanical Engineering department with workshops and labs.",
+          "nearbyLandmark": "Design Thinking Huddle, Biotech Quadrangle",
+          "xPct": 18.456324245701733,
+          "yPct": 45.55669642554185,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T18:49:51.278Z"
+        },
+        {
+          "id": "rvce-football-ground",
+          "locationName": "Football & Cricket Ground",
+          "category": "Block",
+          "buildingName": "Sports Ground",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "Large sports ground for football and cricket, located in the north-east corner.",
+          "nearbyLandmark": "Civil Dept, Kotak Mahindra Bank",
+          "xPct": 81.37094498875388,
+          "yPct": 24.26391012222332,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T18:50:30.874Z"
+        },
+        {
+          "id": "rvce-telecom-dept",
+          "locationName": "Telecommunication Department",
+          "category": "Department",
+          "buildingName": "Telecom Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Telecommunication Engineering department.",
+          "nearbyLandmark": "Library, Mingos Canteen",
+          "xPct": 50.94105000936081,
+          "yPct": 62.721417246421616,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T18:50:19.046Z"
+        },
+        {
+          "id": "rvce-ise-dept",
+          "locationName": "ISE and Aerospace Department",
+          "category": "Department",
+          "buildingName": "ISE & Aerospace Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Information Science and Aerospace Engineering departments.",
+          "nearbyLandmark": "Library, Green House",
+          "xPct": 30,
+          "yPct": 80,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "rvce-krishna-hostel",
+          "locationName": "Krishna Hostel",
+          "category": "Block",
+          "buildingName": "Krishna Hostel",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Boys hostel on the east side of campus.",
+          "nearbyLandmark": "Temple, Health Centre",
+          "xPct": 81.52086087871744,
+          "yPct": 67.72089094665374,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T18:50:25.090Z"
+        },
+        {
+          "id": "rvce-cauvery-hostel",
+          "locationName": "Cauvery Boys Hostel",
+          "category": "Block",
+          "buildingName": "Cauvery Hostel",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Boys hostel in the south-east area of campus.",
+          "nearbyLandmark": "Krishna Hostel, Mathematics Dept",
+          "xPct": 79.42224427695504,
+          "yPct": 79.06586008934993,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T18:50:23.086Z"
+        }
+      ]
+    },
+    {
+      "id": "dsce-campus",
+      "name": "Dayananda Sagar Institutions",
+      "city": "Bengaluru",
+      "adminName": "DSCE Sample Admin",
+      "createdAt": "2026-05-15T00:00:00.000Z",
+      "updatedAt": "2026-05-22T17:00:00.000Z",
+      "map": {
+        "url": "/uploads/samples/dsce-keymap.jpeg",
+        "originalName": "DSCE key map photo.jpeg",
+        "type": "image/jpeg",
+        "kind": "image",
+        "size": 259580
+      },
+      "media": [
+        {
+          "id": "dsce-model-image-1",
+          "kind": "image",
+          "url": "/uploads/samples/dsce-model-1.jpeg",
+          "title": "DSCE 3D Campus Model",
+          "caption": "Physical model view for presentation and visual context."
+        },
+        {
+          "id": "dsce-model-image-2",
+          "kind": "image",
+          "url": "/uploads/samples/dsce-model-2.jpeg",
+          "title": "DSCE 3D Campus Model Alternate",
+          "caption": "Second angle of the 3D model."
+        },
+        {
+          "id": "dsce-model-tour-video",
+          "kind": "video",
+          "url": "/uploads/samples/dsce-model-tour.mp4",
+          "title": "DSCE 3D Model Walkthrough",
+          "caption": "Short video reference for demo presentation."
+        }
+      ],
+      "bounds": {
+        "north": 12.9142,
+        "south": 12.9045,
+        "east": 77.5715,
+        "west": 77.5585
+      },
+      "pins": [
+        {
+          "id": "dsce-main-gate",
+          "locationName": "Main Gate",
+          "category": "Entry Gate",
+          "buildingName": "South Entrance",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "Primary campus entrance with security check and visitor registration.",
+          "nearbyLandmark": "DSI Arch",
+          "xPct": 38,
+          "yPct": 92,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "dsce-admin-block",
+          "locationName": "Admin Block",
+          "category": "Block",
+          "buildingName": "Administrative Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Main administrative building handling admissions, exams, and office work.",
+          "nearbyLandmark": "Main Gate",
+          "xPct": 35,
+          "yPct": 30,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "dsce-cse-block",
+          "locationName": "CSE Department",
+          "category": "Department",
+          "buildingName": "CSE Block",
+          "floorNumber": "2",
+          "roomNumber": "",
+          "description": "Computer Science department with project labs and faculty offices.",
+          "nearbyLandmark": "Admin Block",
+          "xPct": 55,
+          "yPct": 35,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "dsce-ece-block",
+          "locationName": "ECE Department",
+          "category": "Department",
+          "buildingName": "ECE Block",
+          "floorNumber": "",
+          "roomNumber": "",
+          "description": "Electronics and Communication Engineering department.",
+          "nearbyLandmark": "CSE Block",
+          "xPct": 60,
+          "yPct": 50,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "dsce-library",
+          "locationName": "Central Library",
+          "category": "Library",
+          "buildingName": "Knowledge Centre",
+          "floorNumber": "1",
+          "roomNumber": "",
+          "description": "Central library with reading hall, digital section, and reference area.",
+          "nearbyLandmark": "Admin Block, Canteen",
+          "xPct": 42,
+          "yPct": 55,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "dsce-canteen",
+          "locationName": "Main Canteen",
+          "category": "Canteen",
+          "buildingName": "Food Court",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "Main student canteen and food court area.",
+          "nearbyLandmark": "Library, Auditorium",
+          "xPct": 50,
+          "yPct": 70,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "dsce-parking",
+          "locationName": "Student Parking",
+          "category": "Parking",
+          "buildingName": "Parking Area",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "Designated parking area for students and staff vehicles.",
+          "nearbyLandmark": "Main Gate",
+          "xPct": 25,
+          "yPct": 85,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        },
+        {
+          "id": "dsce-seminar-hall",
+          "locationName": "Seminar Hall",
+          "category": "Seminar Hall",
+          "buildingName": "Convention Centre",
+          "floorNumber": "3",
+          "roomNumber": "C-301",
+          "description": "Main auditorium for guest lectures, seminars, and presentations.",
+          "nearbyLandmark": "Canteen, Library",
+          "xPct": 65,
+          "yPct": 65,
+          "createdAt": "2026-05-22T17:00:00.000Z",
+          "updatedAt": "2026-05-22T17:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "ramaiah-campus",
+      "name": "MS Ramaiah Institutions",
+      "city": "Bengaluru",
+      "adminName": "MAPIN Sample Admin",
+      "createdAt": "2026-05-15T00:00:00.000Z",
+      "updatedAt": "2026-05-22T16:10:49.585Z",
+      "map": {
+        "url": "/uploads/samples/ramaiah-key-flat.jpeg",
+        "originalName": "MS Ramaiah key map flat.jpeg",
+        "type": "image/jpeg",
+        "kind": "image",
+        "size": 192826
+      },
+      "media": [
+        {
+          "id": "ramaiah-3d-map",
+          "kind": "image",
+          "url": "/uploads/samples/ramaiah-key-3d.jpeg",
+          "title": "Ramaiah 3D Key Map",
+          "caption": "Dummy 3D-style map reference for testing alternate campus visuals."
+        }
+      ],
+      "bounds": {
+        "north": 13.041,
+        "south": 13.017,
+        "east": 77.578,
+        "west": 77.552
+      },
+      "pins": [
+        {
+          "id": "ramaiah-ground",
+          "locationName": "Institute of Technology Ground",
+          "category": "Block",
+          "buildingName": "Sports Ground",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "Large sports ground marked in the upper-right campus area.",
+          "nearbyLandmark": "M.S. Ramaiah Institute of Technology Ground label",
+          "xPct": 61,
+          "yPct": 28.6,
+          "createdAt": "2026-05-15T00:00:00.000Z",
+          "updatedAt": "2026-05-15T00:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "demo-campus",
+      "name": "MAPIN Demo Campus",
+      "city": "Bengaluru",
+      "adminName": "MAPIN Admin",
+      "createdAt": "2026-05-15T00:00:00.000Z",
+      "updatedAt": "2026-05-15T00:00:00.000Z",
+      "map": {
+        "url": "/uploads/demo-campus.svg",
+        "originalName": "demo-campus.svg",
+        "type": "image/svg+xml",
+        "kind": "image",
+        "size": 14000
+      },
+      "media": [],
+      "bounds": {
+        "north": 13.0632,
+        "south": 13.058,
+        "east": 77.4795,
+        "west": 77.472
+      },
+      "pins": [
+        {
+          "id": "pin-main-gate",
+          "locationName": "Main Gate",
+          "category": "Entry Gate",
+          "buildingName": "North Entrance",
+          "floorNumber": "Ground",
+          "roomNumber": "",
+          "description": "Primary visitor entry and security desk.",
+          "nearbyLandmark": "Flag court",
+          "xPct": 52.4,
+          "yPct": 91.8,
+          "createdAt": "2026-05-15T00:00:00.000Z",
+          "updatedAt": "2026-05-15T00:00:00.000Z"
+        },
+        {
+          "id": "pin-cse-block",
+          "locationName": "Computer Science Department",
+          "category": "Department",
+          "buildingName": "Block A",
+          "floorNumber": "2",
+          "roomNumber": "A-204",
+          "description": "Faculty cabins, project lab, and department office.",
+          "nearbyLandmark": "Innovation court",
+          "xPct": 28.8,
+          "yPct": 42.2,
+          "createdAt": "2026-05-15T00:00:00.000Z",
+          "updatedAt": "2026-05-15T00:00:00.000Z"
+        },
+        {
+          "id": "pin-library",
+          "locationName": "Central Library",
+          "category": "Library",
+          "buildingName": "Knowledge Hub",
+          "floorNumber": "1",
+          "roomNumber": "L-101",
+          "description": "Reading halls, reference section, and digital archive.",
+          "nearbyLandmark": "Amphitheatre",
+          "xPct": 62.6,
+          "yPct": 41.5,
+          "createdAt": "2026-05-15T00:00:00.000Z",
+          "updatedAt": "2026-05-15T00:00:00.000Z"
+        },
+        {
+          "id": "pin-seminar-hall",
+          "locationName": "Seminar Hall",
+          "category": "Seminar Hall",
+          "buildingName": "Block C",
+          "floorNumber": "3",
+          "roomNumber": "C-301",
+          "description": "Main presentation hall for guest lectures and reviews.",
+          "nearbyLandmark": "Canteen lawn",
+          "xPct": 73.5,
+          "yPct": 65.1,
+          "createdAt": "2026-05-15T00:00:00.000Z",
+          "updatedAt": "2026-05-15T00:00:00.000Z"
+        }
+      ]
+    }
+  ]
+}

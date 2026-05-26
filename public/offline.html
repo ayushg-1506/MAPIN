@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MAPIN Offline Map</title>
+    <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/">
+          <span class="brand-mark">M</span>
+          <span>
+            <strong>MAPIN</strong>
+            <small>Offline campus maps</small>
+          </span>
+        </a>
+        <div class="top-actions">
+          <a class="button ghost" href="/">Admin</a>
+          <button class="button primary" id="offlineLocateButton" type="button">Live Location</button>
+        </div>
+      </header>
+
+      <main class="offline-grid">
+        <section class="offline-map-wrap">
+          <div class="workspace-head">
+            <div>
+              <p class="eyebrow">Leaflet offline tiles</p>
+              <h1 id="offlineTitle">Offline Map</h1>
+              <p class="muted" id="offlineMeta">Local tiles, local markers, no Google API.</p>
+            </div>
+            <div class="tool-strip">
+              <select id="offlineInstitutionSelect" aria-label="Institution"></select>
+              <button class="button accent" id="offlineRouteButton" type="button">Draw Route</button>
+            </div>
+          </div>
+          <div id="offlineLeafletMap" class="leaflet-map"></div>
+        </section>
+
+        <aside class="offline-panel">
+          <section class="panel">
+            <div class="section-title">
+              <span>Search</span>
+              <small id="offlinePinCount">0 pins</small>
+            </div>
+            <input id="offlineSearch" class="search-input" type="search" placeholder="Search offline locations">
+            <div id="offlineResults" class="pin-results"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-title">
+              <span>Selected</span>
+              <small id="offlineMode">Tile mode</small>
+            </div>
+            <div id="offlineDetail" class="destination-detail"></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-title">
+              <span>Live Location</span>
+              <small id="offlineLiveMode">Idle</small>
+            </div>
+            <p id="offlineLiveStatus" class="live-status">Live location idle</p>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/vendor/leaflet/leaflet.js"></script>
+    <script src="/offline.js?v=2" defer></script>
+  </body>
+</html>

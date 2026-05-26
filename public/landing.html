@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MAPIN - Smart Campus Navigation</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --teal: #177e80;
+        --coral: #d86745;
+        --ink: #1f2f2b;
+        --paper: #f4efe4;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Inter', system-ui, sans-serif;
+        background-color: var(--paper);
+        color: var(--ink);
+        overflow-x: hidden;
+      }
+
+      /* Hero Section */
+      .hero {
+        position: relative;
+        padding: 140px 24px 100px;
+        text-align: center;
+        background: radial-gradient(circle at top right, rgba(216, 103, 69, 0.12), transparent 40%),
+                    radial-gradient(circle at bottom left, rgba(23, 126, 128, 0.15), transparent 40%);
+        overflow: hidden;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .landing-logo {
+        max-width: 200px;
+        margin-bottom: 24px;
+        mix-blend-mode: multiply;
+      }
+
+      .hero h1 {
+        font-size: clamp(36px, 5vw, 64px);
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -1px;
+        margin: 0 0 24px;
+        color: var(--ink);
+      }
+
+      .hero h1 span {
+        background: linear-gradient(135deg, var(--teal), var(--coral));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero p {
+        font-size: clamp(18px, 2vw, 22px);
+        color: #4a5568;
+        max-width: 700px;
+        margin: 0 auto 48px;
+        line-height: 1.5;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-large {
+        padding: 16px 32px;
+        font-size: 18px;
+        border-radius: 12px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-primary {
+        background: var(--teal);
+        color: white;
+        box-shadow: 0 12px 30px rgba(23, 126, 128, 0.25);
+        border: 2px solid transparent;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 40px rgba(23, 126, 128, 0.35);
+        background: #126365;
+      }
+
+      .btn-secondary {
+        background: white;
+        color: var(--ink);
+        border: 2px solid rgba(31, 47, 43, 0.1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+      }
+
+      .btn-secondary:hover {
+        transform: translateY(-2px);
+        border-color: var(--teal);
+        box-shadow: 0 12px 25px rgba(23, 126, 128, 0.1);
+      }
+
+      /* Sections Container */
+      .section {
+        padding: 100px 24px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 64px;
+      }
+
+      .section-header h2 {
+        font-size: 36px;
+        font-weight: 900;
+        margin: 0 0 16px;
+      }
+      
+      .section-header p {
+        font-size: 18px;
+        color: #65726d;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Grid Layouts */
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 32px;
+      }
+
+      /* Glass Cards */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(31, 47, 43, 0.06);
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .glass-card:hover {
+        transform: translateY(-8px);
+      }
+
+      .step-number {
+        width: 48px;
+        height: 48px;
+        background: var(--coral);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 900;
+        margin-bottom: 24px;
+        box-shadow: 0 10px 20px rgba(216, 103, 69, 0.2);
+      }
+
+      .icon-box {
+        width: 56px;
+        height: 56px;
+        background: rgba(23, 126, 128, 0.1);
+        color: var(--teal);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-bottom: 24px;
+      }
+
+      .glass-card h3 {
+        font-size: 22px;
+        font-weight: 800;
+        margin: 0 0 12px;
+      }
+
+      .glass-card p {
+        font-size: 16px;
+        color: #4a5568;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      /* Footer */
+      footer {
+        padding: 40px 24px;
+        text-align: center;
+        border-top: 1px solid rgba(31, 47, 43, 0.1);
+        color: #65726d;
+        font-weight: 600;
+      }
+      
+      @media (max-width: 768px) {
+        .hero {
+          padding: 80px 24px 60px;
+        }
+        .section {
+          padding: 60px 24px;
+        }
+        .glass-card {
+          padding: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-content">
+        <svg viewBox="0 0 200 240" class="landing-logo" xmlns="http://www.w3.org/2000/svg">
+          <!-- M -->
+          <polygon points="20,30 60,30 100,90 140,30 180,30 180,140 140,140 140,90 100,150 60,90 60,140 20,140" fill="#1f2937" />
+          <!-- Pin Left Half -->
+          <path d="M100,15 C75,15 55,35 55,60 C55,90 100,130 100,130 L100,75 A15,15 0 0,1 100,45 L100,15 Z" fill="#11c1e0"/>
+          <!-- Pin Right Half -->
+          <path d="M100,15 C125,15 145,35 145,60 C145,90 100,130 100,130 L100,75 A15,15 0 0,0 100,45 L100,15 Z" fill="#0ea3be"/>
+          <!-- Texts -->
+          <text x="104" y="185" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="34" text-anchor="middle" fill="#111827" letter-spacing="4">MAPIN</text>
+          <text x="100" y="215" font-family="Georgia, serif" font-style="italic" font-size="20" text-anchor="middle" fill="#11c1e0">Indoor</text>
+          <text x="100" y="235" font-family="Georgia, serif" font-style="italic" font-size="20" text-anchor="middle" fill="#11c1e0">Navigation</text>
+        </svg>
+
+        <h1>Campus Navigation, <span>Simplified.</span></h1>
+        <p>Transform static campus maps into interactive, GPS-enabled navigation experiences. Seamless routing for visitors, powerful map editor for admins. No app installation required.</p>
+        
+        <div class="hero-actions">
+          <a href="/admin" class="btn-large btn-primary">
+            Admin Dashboard
+          </a>
+          <a href="/m/demo-campus" class="btn-large btn-secondary">
+            View Demo Campus
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- How It Works Section -->
+    <section class="section">
+      <div class="section-header">
+        <h2>How MAPIN Works</h2>
+        <p>A powerful pipeline to digitize your campus in minutes.</p>
+      </div>
+      <div class="grid-3">
+        <div class="glass-card">
+          <div class="step-number">1</div>
+          <h3>Upload Map</h3>
+          <p>Start by uploading a simple static image or PDF of your campus map to the Admin Dashboard. MAPIN instantly converts it into a web-native canvas.</p>
+        </div>
+        <div class="glass-card">
+          <div class="step-number">2</div>
+          <h3>Digitize & Pin</h3>
+          <p>Calibrate your map's GPS bounds and drop location pins for Blocks, Labs, and Canteens. Add descriptions and floor numbers for maximum clarity.</p>
+        </div>
+        <div class="glass-card">
+          <div class="step-number">3</div>
+          <h3>Navigate</h3>
+          <p>Share your unique campus link. Visitors open it in their mobile browser, search for destinations, and get real-time distance tracking instantly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="section" style="background: rgba(255,255,255,0.4); border-radius: 40px; margin-bottom: 60px;">
+      <div class="section-header">
+        <h2>Technical Highlights</h2>
+      </div>
+      <div class="grid-2">
+        <div class="glass-card">
+          <div class="icon-box">📍</div>
+          <h3>Live Haversine Distance</h3>
+          <p>MAPIN leverages the browser's Geolocation API and calculates straight-line distances to target pins in real-time using advanced Haversine math.</p>
+        </div>
+        <div class="glass-card">
+          <div class="icon-box">🗺️</div>
+          <h3>Google Maps Handoff</h3>
+          <p>For large campuses, MAPIN seamlessly passes precise GPS coordinates to the native Google Maps app to provide voice-guided turn-by-turn routing.</p>
+        </div>
+        <div class="glass-card">
+          <div class="icon-box">📱</div>
+          <h3>Zero-Install PWA</h3>
+          <p>Visitors don't need to download a heavy campus app. MAPIN acts as a Progressive Web App (PWA) with fully responsive UI tailored for mobile screens.</p>
+        </div>
+        <div class="glass-card">
+          <div class="icon-box">🔌</div>
+          <h3>Offline Capabilities</h3>
+          <p>Engineered for spotty campus networks, MAPIN supports caching map tiles directly into the browser, ensuring visitors never get lost even without LTE.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 MAPIN. Developed for Campus Navigation Excellence.</p>
+    </footer>
+
+  </body>
+</html>

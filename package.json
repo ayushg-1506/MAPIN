@@ -1,0 +1,19 @@
+{
+  "name": "mapin-campus-platform",
+  "version": "1.0.0",
+  "description": "MAPIN full-stack campus map upload, pinning, search, live location, and shareable navigation prototype.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "campus-map",
+    "navigation",
+    "pins",
+    "mapin"
+  ],
+  "author": "MAPIN",
+  "license": "MIT"
+}

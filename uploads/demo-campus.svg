@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="940" viewBox="0 0 1400 940" role="img" aria-label="MAPIN demo campus map">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#d9dccf" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="grass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dfead2"/>
+      <stop offset="1" stop-color="#cddfbf"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#97c7ce"/>
+      <stop offset="1" stop-color="#5fa4ad"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#21312b" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="940" fill="#f5f1e6"/>
+  <rect x="44" y="44" width="1312" height="852" rx="32" fill="url(#grass)" stroke="#b6c9a9" stroke-width="4"/>
+  <rect x="74" y="74" width="1252" height="792" fill="url(#grid)" opacity=".44"/>
+
+  <path d="M105 805 C250 735, 416 736, 570 788 S901 850, 1087 761 S1263 664, 1302 708" fill="none" stroke="#d2a764" stroke-width="44" stroke-linecap="round" opacity=".72"/>
+  <path d="M145 138 C288 192, 370 290, 461 365 S620 498, 770 514 S1030 501, 1265 610" fill="none" stroke="#d2a764" stroke-width="34" stroke-linecap="round" opacity=".78"/>
+  <path d="M650 100 C608 236, 606 328, 671 430 S806 596, 782 808" fill="none" stroke="#d2a764" stroke-width="28" stroke-linecap="round" opacity=".8"/>
+
+  <ellipse cx="1112" cy="234" rx="155" ry="78" fill="url(#water)" stroke="#3d818a" stroke-width="4"/>
+  <path d="M1008 228 C1060 207, 1136 207, 1211 234" fill="none" stroke="#d8eff1" stroke-width="9" stroke-linecap="round" opacity=".8"/>
+
+  <rect x="298" y="326" width="256" height="174" rx="12" fill="#f8faf9" stroke="#344b4c" stroke-width="5" filter="url(#softShadow)"/>
+  <rect x="318" y="351" width="216" height="42" rx="8" fill="#de6f4c"/>
+  <text x="426" y="430" font-family="Arial, sans-serif" font-size="35" font-weight="700" text-anchor="middle" fill="#263132">BLOCK A</text>
+  <text x="426" y="466" font-family="Arial, sans-serif" font-size="22" text-anchor="middle" fill="#4b5755">CSE + Labs</text>
+
+  <rect x="774" y="548" width="278" height="156" rx="12" fill="#f8faf9" stroke="#344b4c" stroke-width="5" filter="url(#softShadow)"/>
+  <rect x="797" y="572" width="232" height="38" rx="8" fill="#6ba678"/>
+  <text x="913" y="642" font-family="Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle" fill="#263132">BLOCK C</text>
+  <text x="913" y="675" font-family="Arial, sans-serif" font-size="21" text-anchor="middle" fill="#4b5755">Seminar Hall</text>
+
+  <rect x="800" y="292" width="248" height="172" rx="12" fill="#fbfbf7" stroke="#344b4c" stroke-width="5" filter="url(#softShadow)"/>
+  <path d="M833 409 H1015" stroke="#caa84e" stroke-width="13" stroke-linecap="round"/>
+  <path d="M854 369 H994" stroke="#caa84e" stroke-width="13" stroke-linecap="round"/>
+  <text x="924" y="343" font-family="Arial, sans-serif" font-size="30" font-weight="700" text-anchor="middle" fill="#263132">LIBRARY</text>
+  <text x="924" y="438" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#4b5755">Knowledge Hub</text>
+
+  <rect x="155" y="618" width="292" height="128" rx="12" fill="#f8faf9" stroke="#344b4c" stroke-width="5" filter="url(#softShadow)"/>
+  <rect x="177" y="640" width="86" height="84" rx="8" fill="#efc35a"/>
+  <text x="319" y="669" font-family="Arial, sans-serif" font-size="28" font-weight="700" text-anchor="middle" fill="#263132">CANTEEN</text>
+  <text x="319" y="704" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#4b5755">Food Court</text>
+
+  <rect x="520" y="160" width="232" height="126" rx="12" fill="#fbfbf7" stroke="#344b4c" stroke-width="5" filter="url(#softShadow)"/>
+  <text x="636" y="214" font-family="Arial, sans-serif" font-size="27" font-weight="700" text-anchor="middle" fill="#263132">ADMIN</text>
+  <text x="636" y="249" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#4b5755">Office</text>
+
+  <rect x="1045" y="694" width="196" height="105" rx="12" fill="#fbfbf7" stroke="#344b4c" stroke-width="5" filter="url(#softShadow)"/>
+  <text x="1143" y="746" font-family="Arial, sans-serif" font-size="26" font-weight="700" text-anchor="middle" fill="#263132">PARKING</text>
+  <text x="1143" y="776" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#4b5755">Visitor Zone</text>
+
+  <circle cx="690" cy="493" r="78" fill="#f3dcc5" stroke="#9b7759" stroke-width="5"/>
+  <text x="690" y="486" font-family="Arial, sans-serif" font-size="26" font-weight="700" text-anchor="middle" fill="#263132">OPEN</text>
+  <text x="690" y="516" font-family="Arial, sans-serif" font-size="22" text-anchor="middle" fill="#263132">COURT</text>
+
+  <rect x="623" y="826" width="220" height="40" rx="8" fill="#2d3d39"/>
+  <text x="733" y="854" font-family="Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle" fill="#ffffff">MAIN GATE</text>
+  <path d="M704 826 V774" stroke="#2d3d39" stroke-width="10" stroke-linecap="round"/>
+  <path d="M762 826 V774" stroke="#2d3d39" stroke-width="10" stroke-linecap="round"/>
+
+  <rect x="78" y="78" width="250" height="58" rx="14" fill="#263132" opacity=".93"/>
+  <text x="203" y="116" font-family="Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#ffffff">MAPIN DEMO CAMPUS</text>
+</svg>

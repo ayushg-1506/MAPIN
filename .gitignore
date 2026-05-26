@@ -1,0 +1,7 @@
+node_modules/
+.env
+data/*.tmp
+uploads/*
+!uploads/demo-campus.svg
+!uploads/samples/
+!uploads/samples/*

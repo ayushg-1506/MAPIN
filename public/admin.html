@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MAPIN Admin</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/">
+          <svg viewBox="15 10 170 145" xmlns="http://www.w3.org/2000/svg" style="height: 40px; width: auto; margin-right: 12px; flex-shrink: 0;">
+            <polygon points="20,30 60,30 100,90 140,30 180,30 180,140 140,140 140,90 100,150 60,90 60,140 20,140" fill="#1f2937" />
+            <path d="M100,15 C75,15 55,35 55,60 C55,90 100,130 100,130 L100,75 A15,15 0 0,1 100,45 L100,15 Z" fill="#11c1e0"/>
+            <path d="M100,15 C125,15 145,35 145,60 C145,90 100,130 100,130 L100,75 A15,15 0 0,0 100,45 L100,15 Z" fill="#0ea3be"/>
+          </svg>
+          <span style="display: flex; flex-direction: column; justify-content: center;">
+            <strong style="color: #111827; font-size: 18px; line-height: 1.1; letter-spacing: 0.5px;">MAPIN</strong>
+            <small style="font-size: 0.75rem; color: #718096; line-height: 1;">Campus map intelligence</small>
+          </span>
+        </a>
+        <div class="top-actions">
+          <a class="button ghost" id="offlineLink" href="/offline.html?id=dsce-campus">Offline Map</a>
+          <a class="button ghost" id="visitorLink" href="/m/demo-campus" target="_blank" rel="noreferrer">Visitor View</a>
+          <button class="button primary" id="copyShareButton" type="button">Copy Share Link</button>
+        </div>
+      </header>
+
+      <main class="admin-grid">
+        <aside class="sidebar">
+          <section class="panel">
+            <div class="section-title">
+              <span>New Campus</span>
+              <small>Upload map</small>
+            </div>
+            <form id="createInstitutionForm" class="stacked-form">
+              <label>
+                <span>Institution name</span>
+                <input name="name" type="text" placeholder="Example Institute of Technology" required>
+              </label>
+              <label>
+                <span>City</span>
+                <input name="city" type="text" placeholder="Bengaluru">
+              </label>
+              <label>
+                <span>Representative</span>
+                <input name="adminName" type="text" placeholder="Admin name">
+              </label>
+              <label>
+                <span>Campus map</span>
+                <input name="mapFile" type="file" accept="application/pdf,image/png,image/jpeg,image/webp,image/gif,image/svg+xml" required>
+              </label>
+              <button class="button primary wide" type="submit">Create Campus</button>
+            </form>
+          </section>
+
+          <section class="panel grow-panel">
+            <div class="section-title">
+              <span>Institutions</span>
+              <small id="institutionCount">0 maps</small>
+            </div>
+            <div id="institutionList" class="institution-list"></div>
+          </section>
+        </aside>
+
+        <section class="workspace">
+          <div class="workspace-head">
+            <div>
+              <p class="eyebrow">Editor</p>
+              <h1 id="currentName">MAPIN Demo Campus</h1>
+              <p id="currentMeta" class="muted">Ready</p>
+            </div>
+            <div class="tool-strip">
+              <button class="button accent" id="addPinButton" type="button">Add Pin</button>
+              <button class="button ghost" id="locateButton" type="button">Live Location</button>
+            </div>
+          </div>
+
+          <div class="map-layout">
+            <div class="map-shell">
+              <div class="map-stage" id="mapStage" aria-label="Campus map editor">
+                <div id="panzoomElement" style="width: 100%; height: 100%; position: relative; transform-origin: 50% 50%;">
+                  <img id="mapImage" class="map-media" alt="Campus map">
+                  <embed id="mapPdf" class="map-media map-pdf" type="application/pdf">
+                  <div id="pinLayer" class="pin-layer"></div>
+                  <div id="liveLayer" class="live-layer"></div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="inspector">
+              <section class="panel">
+                <div class="section-title">
+                  <span>Location Pin</span>
+                  <small id="pinModeLabel">New</small>
+                </div>
+                <form id="pinForm" class="stacked-form">
+                  <input type="hidden" id="pinId">
+                  <label>
+                    <span>Location name</span>
+                    <input id="locationName" type="text" required placeholder="Central Library">
+                  </label>
+                  <label>
+                    <span>Category</span>
+                    <select id="category">
+                      <option>Block</option>
+                      <option>Department</option>
+                      <option>Lab</option>
+                      <option>Office</option>
+                      <option>Seminar Hall</option>
+                      <option>Library</option>
+                      <option>Parking</option>
+                      <option>Canteen</option>
+                      <option>Entry Gate</option>
+                    </select>
+                  </label>
+                  <div class="form-grid">
+                    <label>
+                      <span>Building</span>
+                      <input id="buildingName" type="text" placeholder="Block A">
+                    </label>
+                    <label>
+                      <span>Floor</span>
+                      <input id="floorNumber" type="text" placeholder="2">
+                    </label>
+                    <label>
+                      <span>Room</span>
+                      <input id="roomNumber" type="text" placeholder="A-204">
+                    </label>
+                    <label>
+                      <span>Landmark</span>
+                      <input id="nearbyLandmark" type="text" placeholder="Main court">
+                    </label>
+                  </div>
+                  <label>
+                    <span>Description</span>
+                    <textarea id="description" rows="4" placeholder="Short visitor-facing detail"></textarea>
+                  </label>
+                  <div class="button-row">
+                    <button class="button primary" type="submit">Save Pin</button>
+                    <button class="button danger" id="deletePinButton" type="button">Delete</button>
+                    <button class="button ghost" id="clearPinButton" type="button">Clear</button>
+                  </div>
+                </form>
+              </section>
+
+              <section class="panel">
+                <div class="section-title">
+                  <span>Search</span>
+                  <small id="pinCount">0 pins</small>
+                </div>
+                <input class="search-input" id="pinSearch" type="search" placeholder="Search blocks, rooms, landmarks">
+                <div id="pinResults" class="pin-results"></div>
+              </section>
+
+              <section class="panel" id="campusMediaPanel">
+                <div class="section-title">
+                  <span>Campus Media</span>
+                  <small id="campusMediaCount">0 items</small>
+                </div>
+                <div id="campusMediaGallery" class="media-gallery"></div>
+              </section>
+
+              <section class="panel">
+                <div class="section-title">
+                  <span>GPS Boundary</span>
+                  <small>Live dot</small>
+                </div>
+                <form id="boundsForm" class="bounds-grid">
+                  <label>
+                    <span>North</span>
+                    <input id="northBound" type="number" step="0.000001" placeholder="13.063200">
+                  </label>
+                  <label>
+                    <span>South</span>
+                    <input id="southBound" type="number" step="0.000001" placeholder="13.058000">
+                  </label>
+                  <label>
+                    <span>West</span>
+                    <input id="westBound" type="number" step="0.000001" placeholder="77.472000">
+                  </label>
+                  <label>
+                    <span>East</span>
+                    <input id="eastBound" type="number" step="0.000001" placeholder="77.479500">
+                  </label>
+                  <button class="button ghost wide" type="submit">Save Boundary</button>
+                </form>
+                <p id="liveStatus" class="live-status">Live location idle</p>
+              </section>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+    <script src="/app.js?v=2" defer></script>
+  </body>
+</html>
