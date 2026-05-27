@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MAPIN - Explore Campuses</title>
+    <meta name="description" content="Discover and navigate campus maps. Search for your college and explore interactive campus navigation.">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --teal: #177e80;
+        --coral: #d86745;
+        --ink: #1f2f2b;
+        --paper: #f4efe4;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Inter', system-ui, sans-serif;
+        background:
+          linear-gradient(135deg, rgba(244, 239, 228, .95), rgba(234, 240, 231, .95)),
+          repeating-linear-gradient(90deg, rgba(31, 47, 43, .04) 0 1px, transparent 1px 72px);
+        color: var(--ink);
+        min-height: 100vh;
+      }
+
+      .explore-topbar {
+        height: 68px;
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-bottom: 1px solid rgba(31, 47, 43, .13);
+        background: rgba(255, 253, 247, .86);
+        backdrop-filter: blur(18px);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+
+      .explore-topbar .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+      }
+
+      .explore-topbar .nav-links {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .explore-topbar .nav-links a {
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .explore-topbar .nav-links a.ghost-link {
+        color: var(--ink);
+        background: transparent;
+        border: 1px solid rgba(31,47,43,.15);
+      }
+
+      .explore-topbar .nav-links a.ghost-link:hover {
+        background: rgba(31,47,43,.06);
+        transform: translateY(-1px);
+      }
+
+      .explore-topbar .nav-links a.primary-link {
+        color: white;
+        background: var(--teal);
+      }
+
+      .explore-topbar .nav-links a.primary-link:hover {
+        background: #126365;
+        transform: translateY(-1px);
+      }
+
+      .explore-header {
+        text-align: center;
+        padding: 48px 24px 32px;
+      }
+
+      .explore-header h1 {
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 900;
+        margin: 0 0 12px;
+        letter-spacing: -0.5px;
+      }
+
+      .explore-header h1 span {
+        background: linear-gradient(135deg, var(--teal), var(--coral));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .explore-header p {
+        font-size: 17px;
+        color: #65726d;
+        max-width: 600px;
+        margin: 0 auto 32px;
+      }
+
+      .search-container {
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .search-container input {
+        width: 100%;
+        padding: 16px 20px 16px 48px;
+        font-size: 16px;
+        border: 2px solid rgba(31, 47, 43, .14);
+        border-radius: 16px;
+        background: rgba(255, 253, 247, .9);
+        color: var(--ink);
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        font-family: inherit;
+      }
+
+      .search-container input:focus {
+        border-color: var(--teal);
+        box-shadow: 0 0 0 4px rgba(23, 126, 128, .12);
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        color: #65726d;
+        pointer-events: none;
+      }
+
+      .results-info {
+        text-align: center;
+        padding: 16px 24px 0;
+        color: #65726d;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .campus-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 24px;
+        padding: 24px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .campus-card {
+        background: rgba(255, 253, 247, .85);
+        border: 1px solid rgba(31, 47, 43, .12);
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 12px 30px rgba(31, 47, 43, .06);
+        transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s;
+        text-decoration: none;
+        color: var(--ink);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        cursor: pointer;
+      }
+
+      .campus-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 45px rgba(31, 47, 43, .12);
+        border-color: var(--teal);
+      }
+
+      .campus-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .campus-card h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .campus-card .campus-city {
+        font-size: 14px;
+        color: #65726d;
+        font-weight: 600;
+      }
+
+      .campus-card .campus-stats {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .campus-card .stat-chip {
+        padding: 5px 10px;
+        border-radius: 8px;
+        background: rgba(23, 126, 128, .08);
+        color: var(--teal);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .campus-card .campus-arrow {
+        font-size: 18px;
+        color: var(--teal);
+        flex-shrink: 0;
+        margin-top: 2px;
+        transition: transform 0.2s;
+      }
+
+      .campus-card:hover .campus-arrow {
+        transform: translateX(4px);
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 80px 24px;
+        color: #65726d;
+      }
+
+      .empty-state .empty-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
+      }
+
+      .empty-state h2 {
+        margin: 0 0 8px;
+        color: var(--ink);
+        font-size: 24px;
+      }
+
+      .empty-state p {
+        max-width: 400px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      .demo-banner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .demo-banner-inner {
+        background: linear-gradient(135deg, rgba(23,126,128,.08), rgba(216,103,69,.06));
+        border: 1px solid rgba(23,126,128,.15);
+        border-radius: 16px;
+        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .demo-banner-inner p {
+        margin: 0;
+        font-weight: 700;
+        font-size: 15px;
+      }
+
+      .demo-banner-inner a {
+        padding: 10px 20px;
+        border-radius: 10px;
+        background: var(--teal);
+        color: white;
+        font-weight: 800;
+        font-size: 14px;
+        text-decoration: none;
+        transition: background 0.2s, transform 0.2s;
+        white-space: nowrap;
+      }
+
+      .demo-banner-inner a:hover {
+        background: #126365;
+        transform: translateY(-1px);
+      }
+
+      @media (max-width: 600px) {
+        .campus-grid {
+          grid-template-columns: 1fr;
+          padding: 16px;
+        }
+        .explore-header {
+          padding: 32px 16px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="explore-topbar">
+      <a class="brand" href="/">
+        <svg viewBox="15 10 170 145" xmlns="http://www.w3.org/2000/svg" style="height: 36px; width: auto;">
+          <polygon points="20,30 60,30 100,90 140,30 180,30 180,140 140,140 140,90 100,150 60,90 60,140 20,140" fill="#1f2937" />
+          <path d="M100,15 C75,15 55,35 55,60 C55,90 100,130 100,130 L100,75 A15,15 0 0,1 100,45 L100,15 Z" fill="#11c1e0"/>
+          <path d="M100,15 C125,15 145,35 145,60 C145,90 100,130 100,130 L100,75 A15,15 0 0,0 100,45 L100,15 Z" fill="#0ea3be"/>
+        </svg>
+        <span style="display:flex;flex-direction:column;">
+          <strong style="font-size:17px;letter-spacing:0.5px;line-height:1;">MAPIN</strong>
+          <small style="font-size:11px;color:#718096;">Explore campuses</small>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="ghost-link">Home</a>
+        <a href="/admin" class="primary-link">Admin Dashboard</a>
+      </div>
+    </header>
+
+    <section class="explore-header">
+      <h1>Explore <span>Campus Maps</span></h1>
+      <p>Search for your college or institution and navigate the campus interactively. Only publicly listed campuses are shown.</p>
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input id="exploreSearch" type="search" placeholder="Search by college name or city..." autofocus>
+      </div>
+    </section>
+
+    <div class="demo-banner">
+      <div class="demo-banner-inner">
+        <p>🎓 New here? Try our demo campus to see MAPIN in action.</p>
+        <a href="/m/demo-campus">View Demo Campus →</a>
+      </div>
+    </div>
+
+    <p id="resultsInfo" class="results-info"></p>
+
+    <div id="campusGrid" class="campus-grid"></div>
+
+    <div id="emptyState" class="empty-state" style="display:none;">
+      <div class="empty-icon">🏫</div>
+      <h2>No campuses found</h2>
+      <p>No public campus maps match your search. Try a different keyword, or ask your college admin to publish their map.</p>
+    </div>
+
+    <script src="/explore.js"></script>
+  </body>
+</html>

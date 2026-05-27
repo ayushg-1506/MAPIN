@@ -6,7 +6,7 @@
       "city": "Bengaluru",
       "adminName": "BMS Admin",
       "createdAt": "2026-05-22T17:00:00.000Z",
-      "updatedAt": "2026-05-23T06:22:10.314Z",
+      "updatedAt": "2026-05-27T19:23:48.646Z",
       "map": {
         "url": "/uploads/samples/bms-campus-map.png",
         "originalName": "bms-campus-map.png",
@@ -31,10 +31,10 @@
           "roomNumber": "",
           "description": "Post-graduate block located in the north-west corner of the campus.",
           "nearbyLandmark": "Trust Office",
-          "xPct": 22.236376113583116,
-          "yPct": 14.02416210645668,
+          "xPct": 23.098277104005632,
+          "yPct": 15.259969971487585,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-23T05:02:44.936Z"
+          "updatedAt": "2026-05-27T18:43:38.794Z"
         },
         {
           "id": "bms-trust-office",
@@ -45,10 +45,10 @@
           "roomNumber": "",
           "description": "BMS Trust administrative office near the PG Block.",
           "nearbyLandmark": "Account Section",
-          "xPct": 39.53359365058171,
-          "yPct": 22.809825942222012,
+          "xPct": 40.977230939095826,
+          "yPct": 22.240028670002083,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-23T04:39:58.363Z"
+          "updatedAt": "2026-05-27T18:43:45.588Z"
         },
         {
           "id": "bms-account-section",
@@ -59,10 +59,10 @@
           "roomNumber": "",
           "description": "Fee payment and accounts office for students.",
           "nearbyLandmark": "Trust Office",
-          "xPct": 52.41532389045054,
-          "yPct": 24.519228626964473,
+          "xPct": 52.52637160919811,
+          "yPct": 28.935186015385945,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-23T04:39:56.072Z"
+          "updatedAt": "2026-05-27T18:43:47.708Z"
         },
         {
           "id": "bms-science-block",
@@ -73,10 +73,10 @@
           "roomNumber": "",
           "description": "Physics, Chemistry, and Mathematics departments with labs.",
           "nearbyLandmark": "Central Park",
-          "xPct": 24,
-          "yPct": 44,
+          "xPct": 29.872289616381686,
+          "yPct": 40.04629531514994,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T17:00:00.000Z"
+          "updatedAt": "2026-05-27T18:43:49.891Z"
         },
         {
           "id": "bms-cs-dept",
@@ -87,10 +87,10 @@
           "roomNumber": "",
           "description": "Computer Science and Electronics Engineering department with computer labs and faculty rooms.",
           "nearbyLandmark": "Library Block",
-          "xPct": 71.32780802535473,
-          "yPct": 39.842970029931635,
+          "xPct": 60.29983053509801,
+          "yPct": 38.05199127727685,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-23T05:02:57.347Z"
+          "updatedAt": "2026-05-27T18:43:34.317Z"
         },
         {
           "id": "bms-classroom-block",
@@ -101,10 +101,10 @@
           "roomNumber": "",
           "description": "Main classroom block for undergraduate lectures.",
           "nearbyLandmark": "Science Block",
-          "xPct": 24,
-          "yPct": 66,
+          "xPct": 28.095500699226996,
+          "yPct": 58.99216737282033,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T17:00:00.000Z"
+          "updatedAt": "2026-05-27T18:43:53.617Z"
         },
         {
           "id": "bms-entrance",
@@ -115,10 +115,10 @@
           "roomNumber": "",
           "description": "Main campus entrance gate on the south side.",
           "nearbyLandmark": "Classroom Block",
-          "xPct": 50.709402877031614,
-          "yPct": 9.458645221268275,
+          "xPct": 49.30593693113144,
+          "yPct": 72.38247119550539,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-23T05:03:00.469Z"
+          "updatedAt": "2026-05-27T18:43:25.345Z"
         },
         {
           "id": "bms-hospital",
@@ -129,12 +129,13 @@
           "roomNumber": "",
           "description": "BMS Hospital located on the eastern side of campus along Bull Temple Road.",
           "nearbyLandmark": "Bull Temple Road",
-          "xPct": 83.00589822343547,
-          "yPct": 50.75952733234814,
+          "xPct": 76.84619480042166,
+          "yPct": 48.45085534527627,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-23T06:22:10.314Z"
+          "updatedAt": "2026-05-27T18:43:36.639Z"
         }
-      ]
+      ],
+      "isPublic": true
     },
     {
       "id": "rvce-campus",
@@ -340,7 +341,8 @@
           "createdAt": "2026-05-22T17:00:00.000Z",
           "updatedAt": "2026-05-22T18:50:23.086Z"
         }
-      ]
+      ],
+      "isPublic": true
     },
     {
       "id": "dsce-campus",
@@ -498,7 +500,8 @@
           "createdAt": "2026-05-22T17:00:00.000Z",
           "updatedAt": "2026-05-22T17:00:00.000Z"
         }
-      ]
+      ],
+      "isPublic": true
     },
     {
       "id": "ramaiah-campus",
@@ -544,7 +547,8 @@
           "createdAt": "2026-05-15T00:00:00.000Z",
           "updatedAt": "2026-05-15T00:00:00.000Z"
         }
-      ]
+      ],
+      "isPublic": true
     },
     {
       "id": "demo-campus",
@@ -624,7 +628,25 @@
           "createdAt": "2026-05-15T00:00:00.000Z",
           "updatedAt": "2026-05-15T00:00:00.000Z"
         }
-      ]
+      ],
+      "isPublic": true
+    }
+  ],
+  "users": [
+    {
+      "id": "6b2cfc3d-f8fd-4494-8a9d-ba755e0f00e0",
+      "email": "test@test.com",
+      "name": "Test Admin",
+      "institution": "Test College",
+      "passwordHash": "60f4339958a0c0f8b148cc7b6bd28fb3:5f3ea0a3c869efa9b738d94545e9bc2862c51eaae7a852dc960caa2020b55d8100eaec328643be385b1b1c724fad0658a2fd170b86082bfd3ddfa68d3cc9aecf",
+      "createdAt": "2026-05-27T19:23:25.962Z"
+    }
+  ],
+  "sessions": [
+    {
+      "token": "fd3bd57b-828e-47b8-937c-8d7ca5ae33d4",
+      "userId": "6b2cfc3d-f8fd-4494-8a9d-ba755e0f00e0",
+      "createdAt": "2026-05-27T19:23:25.962Z"
     }
   ]
 }

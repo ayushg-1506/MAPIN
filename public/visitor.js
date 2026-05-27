@@ -84,6 +84,46 @@ function shareUrl() {
   return `${window.location.origin}/m/${visitorState.institution?.id || getInstitutionId()}`;
 }
 
+/* ─── Pin position: calculate actual image rect inside the map-stage ─── */
+
+function getImageRect() {
+  const img = $("visitorMapImage");
+  const stage = $("panzoomElement");
+  if (!img || !stage || img.style.display === "none" || !img.naturalWidth) return null;
+
+  const stageRect = stage.getBoundingClientRect();
+  const stageW = stageRect.width;
+  const stageH = stageRect.height;
+  const imgW = img.naturalWidth;
+  const imgH = img.naturalHeight;
+
+  /* object-fit: contain math */
+  const scaleX = stageW / imgW;
+  const scaleY = stageH / imgH;
+  const scale = Math.min(scaleX, scaleY);
+  const renderedW = imgW * scale;
+  const renderedH = imgH * scale;
+  const offsetX = (stageW - renderedW) / 2;
+  const offsetY = (stageH - renderedH) / 2;
+
+  return { offsetX, offsetY, width: renderedW, height: renderedH, stageW, stageH };
+}
+
+function updatePinLayerPosition() {
+  const pinLayer = $("visitorPinLayer");
+  const liveLayer = $("visitorLiveLayer");
+  const imgRect = getImageRect();
+
+  if (imgRect) {
+    const style = `left:${imgRect.offsetX}px;top:${imgRect.offsetY}px;width:${imgRect.width}px;height:${imgRect.height}px;right:auto;bottom:auto;`;
+    pinLayer.style.cssText = style;
+    liveLayer.style.cssText = style;
+  } else {
+    pinLayer.style.cssText = "";
+    liveLayer.style.cssText = "";
+  }
+}
+
 function renderMap() {
   const institution = visitorState.institution;
   if (!institution) return;
@@ -104,6 +144,13 @@ function renderMap() {
   renderDestination();
   renderCampusMedia();
   renderLiveLocation();
+  updatePinLayerPosition();
+
+  /* Update on image load */
+  const img = $("visitorMapImage");
+  if (img) {
+    img.onload = () => updatePinLayerPosition();
+  }
 }
 
 function renderCategoryOptions() {
@@ -339,6 +386,9 @@ function bindEvents() {
     await navigator.clipboard.writeText(shareUrl());
     showToast("Share link copied.");
   });
+
+  /* Recalculate pin layer on resize */
+  window.addEventListener("resize", () => updatePinLayerPosition());
 }
 
 function generateQRCode() {
@@ -357,7 +407,29 @@ function generateQRCode() {
 
 async function init() {
   bindEvents();
-  visitorState.institution = await api(`/api/institutions/${getInstitutionId()}`);
+  try {
+    visitorState.institution = await api(`/api/institutions/${getInstitutionId()}`);
+  } catch (error) {
+    /* Check if the map is private */
+    if (error.message.includes("private")) {
+      $("visitorCampusName").textContent = "This campus map is private";
+      $("visitorCampusMeta").textContent = "The admin has not made this map public yet.";
+      $("visitorMapStage")?.classList.add("private-map-notice");
+      const stage = $("visitorMapStage");
+      if (stage) {
+        stage.innerHTML = `
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:16px;color:#65726d;">
+            <span style="font-size:64px;">🔒</span>
+            <h2 style="margin:0;color:#1f2f2b;">This Campus Map is Private</h2>
+            <p style="max-width:400px;text-align:center;">The institution admin hasn't published this map yet. Check back later or explore other campuses.</p>
+            <a href="/explore" class="button primary" style="text-decoration:none;">Explore Campuses</a>
+          </div>
+        `;
+      }
+      return;
+    }
+    throw error;
+  }
   visitorState.selectedPin = visitorState.institution.pins[0] || null;
   renderMap();
   generateQRCode();

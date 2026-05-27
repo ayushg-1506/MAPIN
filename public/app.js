@@ -1,3 +1,5 @@
+/* ─── MAPIN Admin App ─── */
+
 const state = {
   institutions: [],
   current: null,
@@ -6,7 +8,8 @@ const state = {
   addMode: false,
   drag: null,
   liveWatchId: null,
-  livePosition: null
+  livePosition: null,
+  user: null
 };
 
 const $ = (id) => document.getElementById(id);
@@ -33,7 +36,8 @@ function showToast(message, type = "info") {
 }
 
 async function api(path, options = {}) {
-  const headers = options.body instanceof FormData ? {} : { "Content-Type": "application/json" };
+  const isFormData = options.body instanceof FormData;
+  const headers = isFormData ? { ...authHeaders() } : { "Content-Type": "application/json", ...authHeaders() };
   const response = await fetch(path, { ...options, headers: { ...headers, ...(options.headers || {}) } });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(data.error || "Request failed.");
@@ -57,14 +61,70 @@ function categoryColor(pin) {
   return categoryColors[pin.category] || "#d86745";
 }
 
+/* ─── Pin position: calculate actual image rect inside the map-stage ─── */
+
+function getImageRect() {
+  const img = $("mapImage");
+  const stage = $("panzoomElement");
+  if (!img || !stage || img.style.display === "none" || !img.naturalWidth) return null;
+
+  const stageRect = stage.getBoundingClientRect();
+  const stageW = stageRect.width;
+  const stageH = stageRect.height;
+  const imgW = img.naturalWidth;
+  const imgH = img.naturalHeight;
+
+  /* object-fit: contain math */
+  const scaleX = stageW / imgW;
+  const scaleY = stageH / imgH;
+  const scale = Math.min(scaleX, scaleY);
+  const renderedW = imgW * scale;
+  const renderedH = imgH * scale;
+  const offsetX = (stageW - renderedW) / 2;
+  const offsetY = (stageH - renderedH) / 2;
+
+  return { offsetX, offsetY, width: renderedW, height: renderedH, stageW, stageH };
+}
+
 function eventToPercent(event) {
-  const rect = $("panzoomElement") ? $("panzoomElement").getBoundingClientRect() : $("mapStage").getBoundingClientRect();
+  const panzoom = $("panzoomElement");
+  const rect = panzoom.getBoundingClientRect();
+  const imgRect = getImageRect();
+
+  if (imgRect) {
+    /* Calculate position relative to the actual rendered image */
+    const xPx = event.clientX - rect.left - imgRect.offsetX;
+    const yPx = event.clientY - rect.top - imgRect.offsetY;
+    const xPct = (xPx / imgRect.width) * 100;
+    const yPct = (yPx / imgRect.height) * 100;
+    return {
+      xPct: Math.min(100, Math.max(0, xPct)),
+      yPct: Math.min(100, Math.max(0, yPct))
+    };
+  }
+
+  /* Fallback for PDFs */
   const xPct = ((event.clientX - rect.left) / rect.width) * 100;
   const yPct = ((event.clientY - rect.top) / rect.height) * 100;
   return {
     xPct: Math.min(100, Math.max(0, xPct)),
     yPct: Math.min(100, Math.max(0, yPct))
   };
+}
+
+function updatePinLayerPosition() {
+  const pinLayer = $("pinLayer");
+  const liveLayer = $("liveLayer");
+  const imgRect = getImageRect();
+
+  if (imgRect) {
+    const style = `left:${imgRect.offsetX}px;top:${imgRect.offsetY}px;width:${imgRect.width}px;height:${imgRect.height}px;right:auto;bottom:auto;`;
+    pinLayer.style.cssText = style;
+    liveLayer.style.cssText = style;
+  } else {
+    pinLayer.style.cssText = "";
+    liveLayer.style.cssText = "";
+  }
 }
 
 function pinSearchText(pin) {
@@ -113,6 +173,11 @@ async function selectInstitution(id) {
   state.draftPin = null;
   state.addMode = false;
   renderCurrent();
+  /* Update pin layer position after image loads */
+  const img = $("mapImage");
+  if (img) {
+    img.onload = () => updatePinLayerPosition();
+  }
 }
 
 function renderInstitutionList() {
@@ -121,6 +186,7 @@ function renderInstitutionList() {
     <button class="institution-card ${state.current?.id === institution.id ? "active" : ""}" data-id="${institution.id}" type="button">
       <strong>${escapeHtml(institution.name)}</strong>
       <span>${escapeHtml(institution.city || "Campus")} - ${institution.pinCount} pins</span>
+      <span class="visibility-badge ${institution.isPublic ? "public" : "private"}">${institution.isPublic ? "🌐 Public" : "🔒 Private"}</span>
     </button>
   `).join("");
 }
@@ -139,6 +205,13 @@ function renderCurrent() {
   if (state.current.map.kind === "image") $("mapImage").src = state.current.map.url;
   if (state.current.map.kind === "pdf") $("mapPdf").src = state.current.map.url;
 
+  /* Public/Private toggle */
+  const toggle = $("publicToggle");
+  if (toggle) {
+    toggle.checked = state.current.isPublic ?? false;
+    $("publicToggleLabel").textContent = toggle.checked ? "Public" : "Private";
+  }
+
   fillBoundsForm();
   renderInstitutionList();
   renderPins();
@@ -146,6 +219,7 @@ function renderCurrent() {
   renderCampusMedia();
   renderLiveLocation();
   clearPinForm();
+  updatePinLayerPosition();
 }
 
 function renderPins() {
@@ -509,6 +583,40 @@ function bindEvents() {
       showToast(error.message, "error");
     }
   });
+
+  /* Public/Private toggle */
+  const publicToggle = $("publicToggle");
+  if (publicToggle) {
+    publicToggle.addEventListener("change", async () => {
+      if (!state.current) return;
+      const isPublic = publicToggle.checked;
+      try {
+        await api(`/api/institutions/${state.current.id}`, {
+          method: "PATCH",
+          body: JSON.stringify({ isPublic })
+        });
+        state.current.isPublic = isPublic;
+        $("publicToggleLabel").textContent = isPublic ? "Public" : "Private";
+        renderInstitutionList();
+        showToast(isPublic ? "Campus is now public. Visitors can find it." : "Campus is now private.");
+      } catch (error) {
+        publicToggle.checked = !isPublic;
+        showToast(error.message, "error");
+      }
+    });
+  }
+
+  /* Logout */
+  $("logoutButton").addEventListener("click", async () => {
+    await logout();
+    $("appShell").style.display = "none";
+    showAuthModal();
+  });
+
+  /* Recalculate pin positions on resize */
+  window.addEventListener("resize", () => {
+    updatePinLayerPosition();
+  });
 }
 
 let panzoomInstance = null;
@@ -524,6 +632,26 @@ function initMapZoom() {
   elem.parentElement.addEventListener("wheel", panzoomInstance.zoomWithWheel);
 }
 
-bindEvents();
-initMapZoom();
-loadInstitutions().catch((error) => showToast(error.message, "error"));
+/* ─── Auth integration ─── */
+
+/* Called by auth.js when login/signup succeeds */
+function onAuthSuccess() {
+  $("appShell").style.display = "flex";
+  initMapZoom();
+  loadInstitutions().catch((error) => showToast(error.message, "error"));
+}
+
+async function initApp() {
+  bindEvents();
+  const user = await checkSession();
+  if (user) {
+    state.user = user;
+    $("appShell").style.display = "flex";
+    initMapZoom();
+    loadInstitutions().catch((error) => showToast(error.message, "error"));
+  } else {
+    showAuthModal();
+  }
+}
+
+initApp();

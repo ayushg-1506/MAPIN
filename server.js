@@ -46,14 +46,18 @@ async function ensureStorage() {
   try {
     await fs.access(DB_FILE);
   } catch {
-    await writeDb({ institutions: [] });
+    await writeDb({ institutions: [], users: [], sessions: [] });
   }
 }
 
 async function readDb() {
   await ensureStorage();
   const raw = await fs.readFile(DB_FILE, "utf8");
-  return JSON.parse(raw || "{\"institutions\":[]}");
+  const db = JSON.parse(raw || '{"institutions":[],"users":[],"sessions":[]}');
+  /* Ensure new collections exist for backward compat */
+  if (!db.users) db.users = [];
+  if (!db.sessions) db.sessions = [];
+  return db;
 }
 
 async function writeDb(db) {
@@ -100,6 +104,7 @@ function summarizeInstitution(institution) {
     bounds: institution.bounds,
     pinCount: institution.pins.length,
     updatedAt: institution.updatedAt,
+    isPublic: institution.isPublic ?? false,
     shareUrl: `/m/${institution.id}`
   };
 }
@@ -230,7 +235,111 @@ function cleanPin(input, existing = {}) {
   };
 }
 
+/* ─── Authentication helpers ─── */
+
+async function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString("hex");
+  return new Promise((resolve, reject) => {
+    crypto.scrypt(password, salt, 64, (err, derived) => {
+      if (err) reject(err);
+      else resolve(`${salt}:${derived.toString("hex")}`);
+    });
+  });
+}
+
+async function verifyPassword(password, hash) {
+  const [salt, key] = hash.split(":");
+  return new Promise((resolve, reject) => {
+    crypto.scrypt(password, salt, 64, (err, derived) => {
+      if (err) reject(err);
+      else resolve(derived.toString("hex") === key);
+    });
+  });
+}
+
+function createSession(db, userId) {
+  const token = crypto.randomUUID();
+  db.sessions.push({ token, userId, createdAt: now() });
+  return token;
+}
+
+function getSessionUser(db, req) {
+  const authHeader = req.headers["authorization"] || "";
+  const token = authHeader.replace(/^Bearer\s+/i, "").trim();
+  if (!token) return null;
+  const session = db.sessions.find((s) => s.token === token);
+  if (!session) return null;
+  return db.users.find((u) => u.id === session.userId) || null;
+}
+
+async function handleSignup(req, res) {
+  const { email, password, name, institution: institutionName } = await readJson(req);
+  if (!email || !password) return sendError(res, 400, "Email and password are required.");
+  if (password.length < 4) return sendError(res, 400, "Password must be at least 4 characters.");
+
+  const db = await readDb();
+  const normalizedEmail = email.trim().toLowerCase();
+  if (db.users.find((u) => u.email === normalizedEmail)) {
+    return sendError(res, 409, "An account with this email already exists.");
+  }
+
+  const hashedPassword = await hashPassword(password);
+  const user = {
+    id: crypto.randomUUID(),
+    email: normalizedEmail,
+    name: sanitizeText(name || email.split("@")[0], 120),
+    institution: sanitizeText(institutionName, 160),
+    passwordHash: hashedPassword,
+    createdAt: now()
+  };
+  db.users.push(user);
+  const token = createSession(db, user.id);
+  await writeDb(db);
+  sendJson(res, 201, { token, user: { id: user.id, email: user.email, name: user.name, institution: user.institution } });
+}
+
+async function handleLogin(req, res) {
+  const { email, password } = await readJson(req);
+  if (!email || !password) return sendError(res, 400, "Email and password are required.");
+
+  const db = await readDb();
+  const normalizedEmail = email.trim().toLowerCase();
+  const user = db.users.find((u) => u.email === normalizedEmail);
+  if (!user) return sendError(res, 401, "Invalid email or password.");
+
+  const valid = await verifyPassword(password, user.passwordHash);
+  if (!valid) return sendError(res, 401, "Invalid email or password.");
+
+  const token = createSession(db, user.id);
+  await writeDb(db);
+  sendJson(res, 200, { token, user: { id: user.id, email: user.email, name: user.name, institution: user.institution } });
+}
+
+async function handleLogout(req, res) {
+  const authHeader = req.headers["authorization"] || "";
+  const token = authHeader.replace(/^Bearer\s+/i, "").trim();
+  if (!token) return sendJson(res, 200, { ok: true });
+
+  const db = await readDb();
+  db.sessions = db.sessions.filter((s) => s.token !== token);
+  await writeDb(db);
+  sendJson(res, 200, { ok: true });
+}
+
+async function handleMe(req, res) {
+  const db = await readDb();
+  const user = getSessionUser(db, req);
+  if (!user) return sendError(res, 401, "Not authenticated.");
+  sendJson(res, 200, { user: { id: user.id, email: user.email, name: user.name, institution: user.institution } });
+}
+
+/* ─── Institution CRUD (with auth) ─── */
+
 async function createInstitution(req, res) {
+  const db = await readDb();
+  const user = getSessionUser(db, req);
+  if (!user) return sendError(res, 401, "Login required to create a campus.");
+
   const body = await collectBody(req);
   const { fields, files } = parseMultipart(req, body);
   const mapFile = files.mapFile;
@@ -246,13 +355,16 @@ async function createInstitution(req, res) {
   const storedPath = path.join(UPLOAD_DIR, storedName);
   await fs.writeFile(storedPath, mapFile.bytes);
 
-  const db = await readDb();
+  /* Re-read DB in case it changed during file write */
+  const freshDb = await readDb();
   const createdAt = now();
   const institution = {
     id,
     name: sanitizeText(fields.name, 120) || "Untitled Campus",
     city: sanitizeText(fields.city, 120),
     adminName: sanitizeText(fields.adminName, 120),
+    createdBy: user.id,
+    isPublic: false,
     createdAt,
     updatedAt: createdAt,
     map: {
@@ -267,21 +379,28 @@ async function createInstitution(req, res) {
     pins: []
   };
 
-  db.institutions.unshift(institution);
-  await writeDb(db);
+  freshDb.institutions.unshift(institution);
+  await writeDb(freshDb);
   sendJson(res, 201, institution);
 }
 
 async function patchInstitution(req, res, id) {
   const patch = await readJson(req);
   const db = await readDb();
+  const user = getSessionUser(db, req);
   const institution = findInstitution(db, id);
   if (!institution) return sendError(res, 404, "Institution not found.");
+
+  /* Check ownership — allow if no createdBy (legacy data) or if user owns it */
+  if (institution.createdBy && (!user || user.id !== institution.createdBy)) {
+    return sendError(res, 403, "You don't have permission to edit this campus.");
+  }
 
   if ("name" in patch) institution.name = sanitizeText(patch.name, 120) || institution.name;
   if ("city" in patch) institution.city = sanitizeText(patch.city, 120);
   if ("adminName" in patch) institution.adminName = sanitizeText(patch.adminName, 120);
   if ("bounds" in patch) institution.bounds = cleanBounds(patch.bounds);
+  if ("isPublic" in patch) institution.isPublic = !!patch.isPublic;
   institution.updatedAt = now();
 
   await writeDb(db);
@@ -291,8 +410,13 @@ async function patchInstitution(req, res, id) {
 async function createPin(req, res, id) {
   const input = await readJson(req);
   const db = await readDb();
+  const user = getSessionUser(db, req);
   const institution = findInstitution(db, id);
   if (!institution) return sendError(res, 404, "Institution not found.");
+
+  if (institution.createdBy && (!user || user.id !== institution.createdBy)) {
+    return sendError(res, 403, "You don't have permission to edit this campus.");
+  }
 
   const pin = cleanPin(input, {
     id: crypto.randomUUID(),
@@ -312,8 +436,13 @@ async function createPin(req, res, id) {
 async function updatePin(req, res, id, pinId) {
   const input = await readJson(req);
   const db = await readDb();
+  const user = getSessionUser(db, req);
   const institution = findInstitution(db, id);
   if (!institution) return sendError(res, 404, "Institution not found.");
+
+  if (institution.createdBy && (!user || user.id !== institution.createdBy)) {
+    return sendError(res, 403, "You don't have permission to edit this campus.");
+  }
 
   const pinIndex = institution.pins.findIndex((pin) => pin.id === pinId);
   if (pinIndex === -1) return sendError(res, 404, "Pin not found.");
@@ -329,10 +458,15 @@ async function updatePin(req, res, id, pinId) {
   sendJson(res, 200, pin);
 }
 
-async function deletePin(res, id, pinId) {
+async function deletePin(res, req, id, pinId) {
   const db = await readDb();
+  const user = getSessionUser(db, req);
   const institution = findInstitution(db, id);
   if (!institution) return sendError(res, 404, "Institution not found.");
+
+  if (institution.createdBy && (!user || user.id !== institution.createdBy)) {
+    return sendError(res, 403, "You don't have permission to edit this campus.");
+  }
 
   const before = institution.pins.length;
   institution.pins = institution.pins.filter((pin) => pin.id !== pinId);
@@ -385,8 +519,39 @@ async function routeApi(req, res, url) {
     return sendJson(res, 200, { ok: true, name: "MAPIN API" });
   }
 
+  /* ─── Auth routes ─── */
+  if (method === "POST" && url.pathname === "/api/auth/signup") {
+    return handleSignup(req, res);
+  }
+  if (method === "POST" && url.pathname === "/api/auth/login") {
+    return handleLogin(req, res);
+  }
+  if (method === "POST" && url.pathname === "/api/auth/logout") {
+    return handleLogout(req, res);
+  }
+  if (method === "GET" && url.pathname === "/api/auth/me") {
+    return handleMe(req, res);
+  }
+
+  /* ─── Public institutions list (for explore page) ─── */
+  if (method === "GET" && url.pathname === "/api/institutions/public") {
+    const db = await readDb();
+    const publicInstitutions = db.institutions.filter((i) => i.isPublic);
+    return sendJson(res, 200, publicInstitutions.map(summarizeInstitution));
+  }
+
+  /* ─── All institutions list (for admin — requires auth, returns only user's) ─── */
   if (method === "GET" && url.pathname === "/api/institutions") {
     const db = await readDb();
+    const user = getSessionUser(db, req);
+    if (user) {
+      /* Authenticated: return user's own institutions + legacy (no createdBy) */
+      const userInstitutions = db.institutions.filter(
+        (i) => i.createdBy === user.id || !i.createdBy
+      );
+      return sendJson(res, 200, userInstitutions.map(summarizeInstitution));
+    }
+    /* Unauthenticated: return all (backward compat) */
     return sendJson(res, 200, db.institutions.map(summarizeInstitution));
   }
 
@@ -401,6 +566,12 @@ async function routeApi(req, res, url) {
       const db = await readDb();
       const institution = findInstitution(db, institutionId);
       if (!institution) return sendError(res, 404, "Institution not found.");
+      /* Check if visitor accessing a private map */
+      const user = getSessionUser(db, req);
+      const isOwner = user && (institution.createdBy === user.id || !institution.createdBy);
+      if (!institution.isPublic && !isOwner && institution.createdBy) {
+        return sendError(res, 403, "This campus map is private.");
+      }
       return sendJson(res, 200, institution);
     }
 
@@ -417,7 +588,7 @@ async function routeApi(req, res, url) {
     }
 
     if (method === "DELETE" && parts[3] === "pins" && parts[4]) {
-      return deletePin(res, institutionId, parts[4]);
+      return deletePin(res, req, institutionId, parts[4]);
     }
   }
 
@@ -442,6 +613,10 @@ async function requestHandler(req, res) {
 
     if (url.pathname === "/admin" || url.pathname === "/admin.html") {
       return serveFile(res, PUBLIC_DIR, "/admin.html");
+    }
+
+    if (url.pathname === "/explore" || url.pathname === "/explore.html") {
+      return serveFile(res, PUBLIC_DIR, "/explore.html");
     }
 
     if (url.pathname === "/map.html" || url.pathname.startsWith("/m/")) {

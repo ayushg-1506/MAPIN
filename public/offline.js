@@ -254,14 +254,29 @@ function drawRoute() {
   }
 
   const destination = state.selectedPin ? pinToLatLng(state.selectedPin) : null;
-  if (!destination) return;
-  const start = state.liveLatLng || bounds?.getCenter();
-  if (!start) return;
-  L.polyline([start, destination], {
+  if (!destination) {
+    $("offlineMode").textContent = "Select a location";
+    return;
+  }
+
+  /* Only draw route from live location — never from campus center */
+  if (!state.liveLatLng) {
+    $("offlineMode").textContent = "Enable GPS for route";
+    return;
+  }
+
+  $("offlineMode").textContent = "Routing";
+  L.polyline([state.liveLatLng, destination], {
     color: "#d86745",
     weight: 5,
-    opacity: 0.9
+    opacity: 0.9,
+    dashArray: "10 6"
   }).addTo(state.routeLayer);
+
+  /* Show distance */
+  const dist = state.liveLatLng.distanceTo(destination);
+  $("offlineDetail").insertAdjacentHTML("beforeend",
+    `<p style="color:#0ea3be;font-weight:600;margin-top:8px;">📍 ~${Math.round(dist)} m away</p>`);
 }
 
 function startLiveLocation() {

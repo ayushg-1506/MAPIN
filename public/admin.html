@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
-    <div class="app-shell">
+    <div class="app-shell" id="appShell" style="display:none;">
       <header class="topbar">
         <a class="brand" href="/">
           <svg viewBox="15 10 170 145" xmlns="http://www.w3.org/2000/svg" style="height: 40px; width: auto; margin-right: 12px; flex-shrink: 0;">
@@ -24,6 +24,7 @@
           <a class="button ghost" id="offlineLink" href="/offline.html?id=dsce-campus">Offline Map</a>
           <a class="button ghost" id="visitorLink" href="/m/demo-campus" target="_blank" rel="noreferrer">Visitor View</a>
           <button class="button primary" id="copyShareButton" type="button">Copy Share Link</button>
+          <button class="button danger" id="logoutButton" type="button" style="margin-left:4px;">Logout</button>
         </div>
       </header>
 
@@ -74,6 +75,11 @@
             <div class="tool-strip">
               <button class="button accent" id="addPinButton" type="button">Add Pin</button>
               <button class="button ghost" id="locateButton" type="button">Live Location</button>
+              <label class="visibility-toggle" title="Toggle public/private">
+                <input type="checkbox" id="publicToggle">
+                <span class="toggle-slider"></span>
+                <span class="toggle-label" id="publicToggleLabel">Private</span>
+              </label>
             </div>
           </div>
 
@@ -195,7 +201,8 @@
     </div>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/auth.js"></script>
     <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
-    <script src="/app.js?v=2" defer></script>
+    <script src="/app.js?v=3" defer></script>
   </body>
 </html>
