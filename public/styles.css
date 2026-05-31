@@ -961,3 +961,11 @@ select:focus {
   background: rgba(31, 47, 43, .06);
   color: var(--muted);
 }
+
+/* Draggable Pin Dragging State */
+.pin-marker.dragging {
+  animation: none !important;
+  cursor: grabbing !important;
+  opacity: 0.82;
+  z-index: 100;
+}

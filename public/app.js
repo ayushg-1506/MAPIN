@@ -358,6 +358,13 @@ function startDrag(event, marker) {
   if (!pin) return;
   if (!isDraft) populatePinForm(pin, false);
 
+  // Add dragging class for custom smooth styling
+  marker.classList.add("dragging");
+  // Temporarily disable map panning during dragging to prevent other pins from sliding
+  if (panzoomInstance) {
+    panzoomInstance.setOptions({ disablePan: true });
+  }
+
   state.drag = {
     pin,
     marker,
@@ -374,6 +381,7 @@ function startDrag(event, marker) {
 
 function onDrag(event) {
   if (!state.drag) return;
+  event.preventDefault();
   const dx = Math.abs(event.clientX - state.drag.startX);
   const dy = Math.abs(event.clientY - state.drag.startY);
   if (dx + dy > 3) state.drag.moved = true;
@@ -389,6 +397,12 @@ async function endDrag() {
   const drag = state.drag;
   state.drag = null;
   if (!drag) return;
+
+  // Restore pointer state and enable panning
+  drag.marker.classList.remove("dragging");
+  if (panzoomInstance) {
+    panzoomInstance.setOptions({ disablePan: false });
+  }
 
   if (drag.isDraft) {
     renderPins();
