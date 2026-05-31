@@ -6,7 +6,7 @@
       "city": "Bengaluru",
       "adminName": "BMS Admin",
       "createdAt": "2026-05-22T17:00:00.000Z",
-      "updatedAt": "2026-05-27T19:23:48.646Z",
+      "updatedAt": "2026-05-27T19:46:42.205Z",
       "map": {
         "url": "/uploads/samples/bms-campus-map.png",
         "originalName": "bms-campus-map.png",
@@ -640,6 +640,14 @@
       "institution": "Test College",
       "passwordHash": "60f4339958a0c0f8b148cc7b6bd28fb3:5f3ea0a3c869efa9b738d94545e9bc2862c51eaae7a852dc960caa2020b55d8100eaec328643be385b1b1c724fad0658a2fd170b86082bfd3ddfa68d3cc9aecf",
       "createdAt": "2026-05-27T19:23:25.962Z"
+    },
+    {
+      "id": "cbea4f3d-354b-4660-95d0-b05c6a6365b3",
+      "email": "bmsce@gmail.com",
+      "name": "Aayush Gupta",
+      "institution": "BMS College of Engineering",
+      "passwordHash": "e15b8b9eafc53d458afd67b49da44177:c526c616ab4e364063618c5c1ee531edfa8c403ff6a4bb06420ac66956f526bf42753a5c65ed3ef63114a63466f126d194517903a7dacfcf4fc8fc08db232694",
+      "createdAt": "2026-05-27T19:46:29.220Z"
     }
   ],
   "sessions": [
@@ -647,6 +655,11 @@
       "token": "fd3bd57b-828e-47b8-937c-8d7ca5ae33d4",
       "userId": "6b2cfc3d-f8fd-4494-8a9d-ba755e0f00e0",
       "createdAt": "2026-05-27T19:23:25.962Z"
+    },
+    {
+      "token": "4af3deee-2249-4919-85c5-d7501623ad4d",
+      "userId": "cbea4f3d-354b-4660-95d0-b05c6a6365b3",
+      "createdAt": "2026-05-27T19:46:29.221Z"
     }
   ]
 }
