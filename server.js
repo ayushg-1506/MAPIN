@@ -519,6 +519,21 @@ async function routeApi(req, res, url) {
     return sendJson(res, 200, { ok: true, name: "MAPIN API" });
   }
 
+  if (method === "GET" && url.pathname === "/api/secrets/google-maps-key") {
+    let key = process.env.GOOGLE_MAPS_API_KEY || "";
+    if (!key) {
+      try {
+        const secretsPath = path.join(DATA_DIR, "secrets.local.json");
+        const secretsRaw = await fs.readFile(secretsPath, "utf8");
+        const secrets = JSON.parse(secretsRaw);
+        key = secrets.GOOGLE_MAPS_API_KEY || "";
+      } catch {
+        // Ignored, key remains empty
+      }
+    }
+    return sendJson(res, 200, { googleMapsApiKey: key });
+  }
+
   /* ─── Auth routes ─── */
   if (method === "POST" && url.pathname === "/api/auth/signup") {
     return handleSignup(req, res);
@@ -621,6 +636,10 @@ async function requestHandler(req, res) {
 
     if (url.pathname === "/map.html" || url.pathname.startsWith("/m/")) {
       return serveFile(res, PUBLIC_DIR, "/map.html");
+    }
+
+    if (url.pathname === "/google" || url.pathname === "/google.html") {
+      return serveFile(res, PUBLIC_DIR, "/google.html");
     }
 
     return serveFile(res, PUBLIC_DIR, url.pathname);

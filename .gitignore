@@ -1,6 +1,7 @@
 node_modules/
 .env
 data/*.tmp
+data/secrets.local.json
 uploads/*
 !uploads/demo-campus.svg
 !uploads/samples/
