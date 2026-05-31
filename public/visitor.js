@@ -91,9 +91,8 @@ function getImageRect() {
   const stage = $("panzoomElement");
   if (!img || !stage || img.style.display === "none" || !img.naturalWidth) return null;
 
-  const stageRect = stage.getBoundingClientRect();
-  const stageW = stageRect.width;
-  const stageH = stageRect.height;
+  const stageW = stage.offsetWidth;
+  const stageH = stage.offsetHeight;
   const imgW = img.naturalWidth;
   const imgH = img.naturalHeight;
 

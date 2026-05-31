@@ -574,7 +574,7 @@
       "city": "Bengaluru",
       "adminName": "DSCE Sample Admin",
       "createdAt": "2026-05-15T00:00:00.000Z",
-      "updatedAt": "2026-05-31T12:26:22.698Z",
+      "updatedAt": "2026-05-31T16:53:21.302Z",
       "map": {
         "url": "/uploads/samples/dsce-campus-map-cropped.jpeg",
         "originalName": "DSCE Campus Map Cropped.jpeg",
@@ -705,10 +705,10 @@
           "roomNumber": "",
           "description": "Electrical Engineering / Biological Science",
           "nearbyLandmark": "",
-          "xPct": 42.99870218886242,
-          "yPct": 72.50216073615668,
+          "xPct": 54.217297470569605,
+          "yPct": 69.88000183105468,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:26:20.104Z"
+          "updatedAt": "2026-05-31T16:53:15.298Z"
         },
         {
           "id": "dsce-8-auditorium",
@@ -733,10 +733,10 @@
           "roomNumber": "",
           "description": "Civil Engineering / Industrial Electronics & Management",
           "nearbyLandmark": "",
-          "xPct": 39.021283088983424,
-          "yPct": 75.14700097229078,
+          "xPct": 30.25355228185654,
+          "yPct": 31.800006866455078,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:20:41.110Z"
+          "updatedAt": "2026-05-31T16:30:23.773Z"
         },
         {
           "id": "dsce-10-biotech",
@@ -747,24 +747,10 @@
           "roomNumber": "",
           "description": "Biotechnology / Information Science & Engineering",
           "nearbyLandmark": "",
-          "xPct": 29.447431727724066,
-          "yPct": 68.97495048843581,
+          "xPct": 37.9787109375,
+          "yPct": 69.88000259399413,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:20:08.206Z"
-        },
-        {
-          "id": "dsce-11-architecture",
-          "locationName": "11 - Architecture",
-          "category": "Department",
-          "buildingName": "Block 11",
-          "floorNumber": "",
-          "roomNumber": "",
-          "description": "Architecture",
-          "nearbyLandmark": "",
-          "xPct": 18.655044198048877,
-          "yPct": 62.608865308961605,
-          "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:06:20.940Z"
+          "updatedAt": "2026-05-31T16:30:15.986Z"
         },
         {
           "id": "dsce-13-finearts",
@@ -789,10 +775,10 @@
           "roomNumber": "",
           "description": "Arts, Science & Commerce",
           "nearbyLandmark": "",
-          "xPct": 12.500001358510335,
-          "yPct": 38.051991956532014,
+          "xPct": 65.5685546875,
+          "yPct": 19.48000183105469,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:14:49.649Z"
+          "updatedAt": "2026-05-31T16:52:51.645Z"
         },
         {
           "id": "dsce-15-physiology",
@@ -803,10 +789,10 @@
           "roomNumber": "",
           "description": "Physiology / Pharmacy",
           "nearbyLandmark": "",
-          "xPct": 24.89315859630018,
-          "yPct": 31.641735964278784,
+          "xPct": 33.96937170849394,
+          "yPct": 23.344136843006634,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:14:54.089Z"
+          "updatedAt": "2026-05-31T16:12:15.288Z"
         },
         {
           "id": "dsce-16-physics",
@@ -831,10 +817,10 @@
           "roomNumber": "",
           "description": "Canteen / Electronics & Communication / MBA / MCA / MEA / Parking College",
           "nearbyLandmark": "",
-          "xPct": 32.9195528218705,
-          "yPct": 27.536827856634776,
+          "xPct": 47.753393626213075,
+          "yPct": 42.039999389648436,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:18:20.149Z"
+          "updatedAt": "2026-05-31T16:53:06.020Z"
         },
         {
           "id": "dsce-18-physiotherapy",
@@ -859,10 +845,10 @@
           "roomNumber": "",
           "description": "Chemical Engineering / Computer Science / Construction Tech / Mechanical",
           "nearbyLandmark": "",
-          "xPct": 38.190203401601195,
-          "yPct": 36.65363311852568,
+          "xPct": 43.65433353185654,
+          "yPct": 69.08000183105469,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:18:28.323Z"
+          "updatedAt": "2026-05-31T16:53:21.302Z"
         },
         {
           "id": "dsce-20-telecom",
@@ -887,10 +873,10 @@
           "roomNumber": "",
           "description": "Hospital / Ladies Hostel - 3 (Nelson Mandela) / Library",
           "nearbyLandmark": "",
-          "xPct": 43.12677998816466,
-          "yPct": 23.949429316979042,
+          "xPct": 46.176831126213074,
+          "yPct": 13.239999389648439,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:15:15.452Z"
+          "updatedAt": "2026-05-31T16:53:00.885Z"
         },
         {
           "id": "dsce-22-medical-nri",
@@ -943,10 +929,10 @@
           "roomNumber": "",
           "description": "Mechanical Laboratory Complex",
           "nearbyLandmark": "",
-          "xPct": 57.08688651711098,
-          "yPct": 35.772789282548956,
+          "xPct": 60.365893626213065,
+          "yPct": 72.1200050354004,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:15:10.511Z"
+          "updatedAt": "2026-05-31T16:29:51.363Z"
         },
         {
           "id": "dsce-football-ground",
@@ -957,10 +943,10 @@
           "roomNumber": "",
           "description": "Football ground and play area on the western side of campus.",
           "nearbyLandmark": "Open Ground, Block 12",
-          "xPct": 18.340454644502298,
-          "yPct": 48.45085330751077,
+          "xPct": 22.843713343143467,
+          "yPct": 48.28000679016113,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:14:47.759Z"
+          "updatedAt": "2026-05-31T16:19:22.554Z"
         },
         {
           "id": "dsce-mess",
@@ -971,10 +957,10 @@
           "roomNumber": "",
           "description": "Campus dining hall and mess for students.",
           "nearbyLandmark": "Temple",
-          "xPct": 47.86633453806029,
-          "yPct": 43.221020529264756,
+          "xPct": 52.57248520457082,
+          "yPct": 38.65600152660241,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T12:16:18.065Z"
+          "updatedAt": "2026-05-31T16:15:51.298Z"
         },
         {
           "id": "dsce-temple",
@@ -1014,9 +1000,9 @@
           "roomNumber": "",
           "description": "Parking",
           "nearbyLandmark": "",
-          "xPct": 62.11134785417859,
-          "yPct": 36.66831657746688,
-          "updatedAt": "2026-05-31T12:16:55.460Z"
+          "xPct": 73.07985934068228,
+          "yPct": 30.331101745328464,
+          "updatedAt": "2026-05-31T16:15:42.205Z"
         },
         {
           "id": "b24069d8-1498-450a-9bef-1c5839f1d2b2",
@@ -1028,9 +1014,9 @@
           "roomNumber": "",
           "description": "Parking",
           "nearbyLandmark": "",
-          "xPct": 60.93001232401695,
-          "yPct": 71.76286290361577,
-          "updatedAt": "2026-05-31T12:20:51.520Z"
+          "xPct": 70.14058834314346,
+          "yPct": 72.12000007629395,
+          "updatedAt": "2026-05-31T16:19:31.380Z"
         },
         {
           "id": "4e69721c-3688-4477-8617-cafae5d4ad2b",
@@ -1042,9 +1028,9 @@
           "roomNumber": "",
           "description": "",
           "nearbyLandmark": "",
-          "xPct": 72.04415049903518,
-          "yPct": 53.15170933204221,
-          "updatedAt": "2026-05-31T12:21:06.951Z"
+          "xPct": 39.82862146166864,
+          "yPct": 51.292004958622385,
+          "updatedAt": "2026-05-31T16:13:25.320Z"
         },
         {
           "id": "0963e8ab-efa2-46e6-8bd6-a2b622dcb8bb",
@@ -1056,9 +1042,9 @@
           "roomNumber": "",
           "description": "",
           "nearbyLandmark": "",
-          "xPct": 5.71157412765976,
-          "yPct": 45.77044381445792,
-          "updatedAt": "2026-05-31T12:18:05.016Z"
+          "xPct": 19.848242187500002,
+          "yPct": 60.28000259399414,
+          "updatedAt": "2026-05-31T16:30:12.406Z"
         }
       ],
       "isPublic": true

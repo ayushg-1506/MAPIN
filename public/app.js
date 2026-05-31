@@ -68,9 +68,8 @@ function getImageRect() {
   const stage = $("panzoomElement");
   if (!img || !stage || img.style.display === "none" || !img.naturalWidth) return null;
 
-  const stageRect = stage.getBoundingClientRect();
-  const stageW = stageRect.width;
-  const stageH = stageRect.height;
+  const stageW = stage.offsetWidth;
+  const stageH = stage.offsetHeight;
   const imgW = img.naturalWidth;
   const imgH = img.naturalHeight;
 
@@ -91,12 +90,15 @@ function eventToPercent(event) {
   const rect = panzoom.getBoundingClientRect();
   const imgRect = getImageRect();
 
-  if (imgRect) {
-    /* Calculate position relative to the actual rendered image, accounting for zoom */
-    const zoom = rect.width / imgRect.stageW;
+  if (imgRect && panzoom.offsetWidth > 0) {
+    /* Calculate zoom scale using bounding rect vs offsetWidth */
+    const zoom = rect.width / panzoom.offsetWidth;
+    
+    /* Calculate position relative to the unscaled panzoomElement */
     const unscaledX = (event.clientX - rect.left) / zoom;
     const unscaledY = (event.clientY - rect.top) / zoom;
     
+    /* Calculate position relative to the actual rendered image */
     const xPx = unscaledX - imgRect.offsetX;
     const yPx = unscaledY - imgRect.offsetY;
     const xPct = (xPx / imgRect.width) * 100;
@@ -108,9 +110,11 @@ function eventToPercent(event) {
   }
 
   /* Fallback for PDFs */
-  const zoom = rect.width / rect.width; // Fallback zoom, usually 1 for PDFs without object-fit
-  const xPct = (((event.clientX - rect.left) / zoom) / (rect.width / zoom)) * 100;
-  const yPct = (((event.clientY - rect.top) / zoom) / (rect.height / zoom)) * 100;
+  const width = panzoom ? panzoom.offsetWidth : rect.width;
+  const height = panzoom ? panzoom.offsetHeight : rect.height;
+  const zoom = (panzoom && width > 0) ? rect.width / width : 1;
+  const xPct = (((event.clientX - rect.left) / zoom) / (width || 1)) * 100;
+  const yPct = (((event.clientY - rect.top) / zoom) / (height || 1)) * 100;
   return {
     xPct: Math.min(100, Math.max(0, xPct)),
     yPct: Math.min(100, Math.max(0, yPct))

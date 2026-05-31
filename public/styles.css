@@ -990,3 +990,7 @@ select:focus {
   opacity: 0.82;
   z-index: 100;
 }
+
+.pin-marker.dragging .pin-dot {
+  transition: none !important;
+}
