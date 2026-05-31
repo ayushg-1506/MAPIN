@@ -3,8 +3,25 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MAPIN Visitor Map</title>
+    <title>MAPIN - Google Maps Mode</title>
     <link rel="stylesheet" href="/styles.css">
+    <style>
+      .google-map-shell {
+        background: #e2e8f0;
+      }
+      .google-map-container {
+        width: 100%;
+        height: 100%;
+        min-height: 500px;
+        height: calc(100vh - 216px);
+        border-radius: var(--radius);
+      }
+      @media (max-width: 1180px) {
+        .google-map-container {
+          height: min(70vh, 700px);
+        }
+      }
+    </style>
   </head>
   <body class="visitor-body">
     <div class="visitor-shell">
@@ -17,11 +34,11 @@
           </svg>
           <span style="display: flex; flex-direction: column; justify-content: center;">
             <strong style="color: #111827; font-size: 18px; line-height: 1.1; letter-spacing: 0.5px;">MAPIN</strong>
-            <small id="visitorSubtitle" style="font-size: 0.75rem; color: #718096; line-height: 1;">Visitor navigation</small>
+            <small id="visitorSubtitle" style="font-size: 0.75rem; color: #718096; line-height: 1;">Google Maps View</small>
           </span>
         </a>
         <div class="top-actions">
-          <a class="button ghost" id="offlineVisitorLink" href="/offline.html?id=dsce-campus">Offline Map</a>
+          <a class="button ghost" id="offlineVisitorLink" href="/offline.html?id=demo-campus">Offline Map</a>
           <button class="button ghost" id="visitorLocateButton" type="button">Live Location</button>
           <button class="button primary" id="visitorCopyButton" type="button">Copy Link</button>
         </div>
@@ -31,22 +48,19 @@
         <section class="visitor-map-area">
           <div class="visitor-heading">
             <div>
-              <p class="eyebrow">Campus map</p>
-              <h1 id="visitorCampusName">Loading MAPIN</h1>
-              <p id="visitorCampusMeta" class="muted">Loading map data</p>
+              <p class="eyebrow">Google Maps Mode</p>
+              <h1 id="visitorCampusName">Loading Campus</h1>
+              <p id="visitorCampusMeta" class="muted">Loading GPS map data</p>
             </div>
             <div class="visitor-search-wrap">
               <input id="visitorSearch" class="search-input" type="search" placeholder="Search destination">
               <div id="visitorCategoryChips" class="category-chips"></div>
             </div>
           </div>
-          <div class="map-shell visitor-map-shell">
-            <div class="map-stage" id="visitorMapStage" aria-label="Campus visitor map">
-              <div id="panzoomElement" style="width: 100%; height: 100%; position: relative; transform-origin: 50% 50%;">
-                <img id="visitorMapImage" class="map-media" alt="Campus map" draggable="false">
-                <embed id="visitorMapPdf" class="map-media map-pdf" type="application/pdf">
-                <div id="visitorPinLayer" class="pin-layer"></div>
-                <div id="visitorLiveLayer" class="live-layer"></div>
+          <div class="map-shell google-map-shell">
+            <div id="googleMap" class="google-map-container" aria-label="Campus Google Map">
+              <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--muted);">
+                Loading Google Maps API...
               </div>
             </div>
           </div>
@@ -85,20 +99,11 @@
             </div>
             <p id="visitorLiveStatus" class="live-status">Live location idle</p>
           </section>
-          <section class="panel">
-            <div class="section-title">
-              <span>Scan Map</span>
-              <small>Share on mobile</small>
-            </div>
-            <div id="qrcodeContainer" style="display: flex; justify-content: center; padding: 16px; background: white; border-radius: 8px;"></div>
-          </section>
         </aside>
       </main>
     </div>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
-    <script src="/visitor.js?v=2" defer></script>
+    <script src="/google.js" defer></script>
   </body>
 </html>

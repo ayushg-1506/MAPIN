@@ -6,7 +6,7 @@
       "city": "Bengaluru",
       "adminName": "BMS Admin",
       "createdAt": "2026-05-22T17:00:00.000Z",
-      "updatedAt": "2026-05-27T19:46:42.205Z",
+      "updatedAt": "2026-05-31T09:20:47.492Z",
       "map": {
         "url": "/uploads/samples/bms-campus-map.png",
         "originalName": "bms-campus-map.png",
@@ -31,10 +31,10 @@
           "roomNumber": "",
           "description": "Post-graduate block located in the north-west corner of the campus.",
           "nearbyLandmark": "Trust Office",
-          "xPct": 23.098277104005632,
-          "yPct": 15.259969971487585,
+          "xPct": 24.519995117187502,
+          "yPct": 16.73999938964844,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-27T18:43:38.794Z"
+          "updatedAt": "2026-05-31T09:20:47.492Z"
         },
         {
           "id": "bms-trust-office",
@@ -87,10 +87,10 @@
           "roomNumber": "",
           "description": "Computer Science and Electronics Engineering department with computer labs and faculty rooms.",
           "nearbyLandmark": "Library Block",
-          "xPct": 60.29983053509801,
-          "yPct": 38.05199127727685,
+          "xPct": 68.2,
+          "yPct": 39.93999938964844,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-27T18:43:34.317Z"
+          "updatedAt": "2026-05-31T09:14:19.574Z"
         },
         {
           "id": "bms-classroom-block",
@@ -143,7 +143,7 @@
       "city": "Bengaluru",
       "adminName": "RVCE Admin",
       "createdAt": "2026-05-17T16:29:01.234Z",
-      "updatedAt": "2026-05-23T05:03:13.685Z",
+      "updatedAt": "2026-05-31T09:14:24.828Z",
       "map": {
         "url": "/uploads/samples/rvce-campus-blueprint.png",
         "originalName": "rvce-campus-blueprint.png",
@@ -224,10 +224,10 @@
           "roomNumber": "",
           "description": "Electrical and Electronics Engineering department.",
           "nearbyLandmark": "ECE Dept, Kriyakalpa",
-          "xPct": 60.306777441245075,
-          "yPct": 40.99117926616928,
+          "xPct": 59.07999267578125,
+          "yPct": 39.460000610351564,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T18:50:00.517Z"
+          "updatedAt": "2026-05-31T09:14:24.828Z"
         },
         {
           "id": "rvce-ece-dept",
@@ -350,7 +350,7 @@
       "city": "Bengaluru",
       "adminName": "DSCE Sample Admin",
       "createdAt": "2026-05-15T00:00:00.000Z",
-      "updatedAt": "2026-05-22T17:00:00.000Z",
+      "updatedAt": "2026-05-31T09:21:19.022Z",
       "map": {
         "url": "/uploads/samples/dsce-keymap.jpeg",
         "originalName": "DSCE key map photo.jpeg",
@@ -389,20 +389,6 @@
       },
       "pins": [
         {
-          "id": "dsce-main-gate",
-          "locationName": "Main Gate",
-          "category": "Entry Gate",
-          "buildingName": "South Entrance",
-          "floorNumber": "Ground",
-          "roomNumber": "",
-          "description": "Primary campus entrance with security check and visitor registration.",
-          "nearbyLandmark": "DSI Arch",
-          "xPct": 38,
-          "yPct": 92,
-          "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T17:00:00.000Z"
-        },
-        {
           "id": "dsce-admin-block",
           "locationName": "Admin Block",
           "category": "Block",
@@ -411,24 +397,10 @@
           "roomNumber": "",
           "description": "Main administrative building handling admissions, exams, and office work.",
           "nearbyLandmark": "Main Gate",
-          "xPct": 35,
-          "yPct": 30,
+          "xPct": 48.02666015625,
+          "yPct": 74.65999984741211,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T17:00:00.000Z"
-        },
-        {
-          "id": "dsce-cse-block",
-          "locationName": "CSE Department",
-          "category": "Department",
-          "buildingName": "CSE Block",
-          "floorNumber": "2",
-          "roomNumber": "",
-          "description": "Computer Science department with project labs and faculty offices.",
-          "nearbyLandmark": "Admin Block",
-          "xPct": 55,
-          "yPct": 35,
-          "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T17:00:00.000Z"
+          "updatedAt": "2026-05-31T09:21:11.891Z"
         },
         {
           "id": "dsce-ece-block",
@@ -439,10 +411,10 @@
           "roomNumber": "",
           "description": "Electronics and Communication Engineering department.",
           "nearbyLandmark": "CSE Block",
-          "xPct": 60,
-          "yPct": 50,
+          "xPct": 23.493326822916664,
+          "yPct": 64.42000350952148,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T17:00:00.000Z"
+          "updatedAt": "2026-05-31T09:21:19.022Z"
         },
         {
           "id": "dsce-library",
@@ -453,52 +425,10 @@
           "roomNumber": "",
           "description": "Central library with reading hall, digital section, and reference area.",
           "nearbyLandmark": "Admin Block, Canteen",
-          "xPct": 42,
-          "yPct": 55,
+          "xPct": 30.533333333333335,
+          "yPct": 55.13999862670899,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T17:00:00.000Z"
-        },
-        {
-          "id": "dsce-canteen",
-          "locationName": "Main Canteen",
-          "category": "Canteen",
-          "buildingName": "Food Court",
-          "floorNumber": "Ground",
-          "roomNumber": "",
-          "description": "Main student canteen and food court area.",
-          "nearbyLandmark": "Library, Auditorium",
-          "xPct": 50,
-          "yPct": 70,
-          "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T17:00:00.000Z"
-        },
-        {
-          "id": "dsce-parking",
-          "locationName": "Student Parking",
-          "category": "Parking",
-          "buildingName": "Parking Area",
-          "floorNumber": "Ground",
-          "roomNumber": "",
-          "description": "Designated parking area for students and staff vehicles.",
-          "nearbyLandmark": "Main Gate",
-          "xPct": 25,
-          "yPct": 85,
-          "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T17:00:00.000Z"
-        },
-        {
-          "id": "dsce-seminar-hall",
-          "locationName": "Seminar Hall",
-          "category": "Seminar Hall",
-          "buildingName": "Convention Centre",
-          "floorNumber": "3",
-          "roomNumber": "C-301",
-          "description": "Main auditorium for guest lectures, seminars, and presentations.",
-          "nearbyLandmark": "Canteen, Library",
-          "xPct": 65,
-          "yPct": 65,
-          "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-22T17:00:00.000Z"
+          "updatedAt": "2026-05-31T09:21:05.888Z"
         }
       ],
       "isPublic": true
@@ -648,6 +578,14 @@
       "institution": "BMS College of Engineering",
       "passwordHash": "e15b8b9eafc53d458afd67b49da44177:c526c616ab4e364063618c5c1ee531edfa8c403ff6a4bb06420ac66956f526bf42753a5c65ed3ef63114a63466f126d194517903a7dacfcf4fc8fc08db232694",
       "createdAt": "2026-05-27T19:46:29.220Z"
+    },
+    {
+      "id": "55af5e08-e08b-49df-a8f2-7f31cf49564a",
+      "email": "abhishekbhat0p@gmail.com",
+      "name": "Abhishek D Bhat",
+      "institution": "Dayananda Sagar College of Engineering",
+      "passwordHash": "f51fc21f1800bf2db8bfe412ac7c1506:82d31f7f943681a79a716fbb6f7ff6e50278a2c4febfab55b3f7545f036183d826ae288bf941834259f90031969d1ed8c186ac866b942a295b22eb32032bc8eb",
+      "createdAt": "2026-05-30T17:32:52.123Z"
     }
   ],
   "sessions": [
@@ -660,6 +598,11 @@
       "token": "4af3deee-2249-4919-85c5-d7501623ad4d",
       "userId": "cbea4f3d-354b-4660-95d0-b05c6a6365b3",
       "createdAt": "2026-05-27T19:46:29.221Z"
+    },
+    {
+      "token": "74186e13-4b1e-4f30-bc70-3efc58f8bfb6",
+      "userId": "55af5e08-e08b-49df-a8f2-7f31cf49564a",
+      "createdAt": "2026-05-30T17:32:52.123Z"
     }
   ]
 }
