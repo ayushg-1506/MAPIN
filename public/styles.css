@@ -236,40 +236,61 @@ a {
   top: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
-  transform: translate(-14px, -14px);
+  gap: 4px;
+  transform: translate(-9px, -9px);
   border: 0;
   background: transparent;
   color: var(--ink);
   pointer-events: auto;
   padding: 0;
-  max-width: min(230px, 34vw);
+  max-width: min(200px, 30vw);
   z-index: 3;
+  transition: z-index 0s;
+}
+
+.pin-marker:hover {
+  z-index: 8;
 }
 
 .pin-dot {
-  width: 28px;
-  height: 28px;
+  width: 18px;
+  height: 18px;
   border-radius: 999px 999px 999px 2px;
   transform: rotate(-45deg);
   background: var(--pin-color);
-  border: 3px solid #fff;
-  box-shadow: 0 7px 18px rgba(31, 47, 43, .24);
+  border: 2px solid #fff;
+  box-shadow: 0 4px 12px rgba(31, 47, 43, .24);
   flex: 0 0 auto;
+  transition: transform .18s ease, box-shadow .18s ease, width .18s ease, height .18s ease;
+}
+
+.pin-marker:hover .pin-dot {
+  width: 22px;
+  height: 22px;
+  box-shadow: 0 6px 16px rgba(31, 47, 43, .32);
 }
 
 .pin-label {
-  transform: translateY(-4px);
-  padding: 5px 8px;
+  transform: translateY(-3px);
+  padding: 3px 6px;
   border-radius: var(--radius);
   background: rgba(255, 253, 247, .94);
   border: 1px solid rgba(31, 47, 43, .13);
-  box-shadow: 0 8px 18px rgba(31, 47, 43, .1);
-  font-size: 12px;
+  box-shadow: 0 6px 14px rgba(31, 47, 43, .1);
+  font-size: 11px;
   font-weight: 800;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+}
+
+.pin-marker:hover .pin-label,
+.pin-marker.active .pin-label {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .pin-marker.active .pin-dot,
@@ -278,8 +299,8 @@ a {
 }
 
 @keyframes bouncePin {
-  0%, 100% { transform: translate(-14px, -14px); }
-  50% { transform: translate(-14px, -24px); }
+  0%, 100% { transform: translate(-9px, -9px); }
+  50% { transform: translate(-9px, -19px); }
 }
 
 .pin-marker.active {

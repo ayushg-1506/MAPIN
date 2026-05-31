@@ -407,6 +407,53 @@ async function patchInstitution(req, res, id) {
   sendJson(res, 200, institution);
 }
 
+async function deleteInstitution(req, res, id) {
+  const db = await readDb();
+  const user = getSessionUser(db, req);
+  const index = db.institutions.findIndex((i) => i.id === id);
+  if (index === -1) return sendError(res, 404, "Institution not found.");
+
+  const institution = db.institutions[index];
+  if (institution.createdBy && (!user || user.id !== institution.createdBy)) {
+    return sendError(res, 403, "You don't have permission to delete this campus.");
+  }
+
+  db.institutions.splice(index, 1);
+  await writeDb(db);
+  sendJson(res, 200, { success: true });
+}
+
+async function updateMap(req, res, id) {
+  const body = await collectBody(req);
+  const { files } = parseMultipart(req, body);
+  const mapFile = files.mapFile;
+
+  if (!mapFile) return sendError(res, 400, "Upload a map file.");
+  if (!allowedUploadTypes.has(mapFile.type)) {
+    return sendError(res, 415, "Use a PDF, PNG, JPG, WEBP, GIF, or SVG map.");
+  }
+
+  const db = await readDb();
+  const institution = findInstitution(db, id);
+  if (!institution) return sendError(res, 404, "Institution not found.");
+
+  const ext = extensionForUpload(mapFile);
+  const storedName = `${id}-${Date.now()}${ext}`;
+  const storedPath = path.join(UPLOAD_DIR, storedName);
+  await fs.writeFile(storedPath, mapFile.bytes);
+
+  institution.map = {
+    url: `/uploads/${storedName}`,
+    originalName: mapFile.filename,
+    type: mapFile.type,
+    kind: mapKind(mapFile.type),
+    size: mapFile.bytes.length
+  };
+  institution.updatedAt = now();
+  await writeDb(db);
+  sendJson(res, 200, institution);
+}
+
 async function createPin(req, res, id) {
   const input = await readJson(req);
   const db = await readDb();
@@ -592,6 +639,14 @@ async function routeApi(req, res, url) {
 
     if (method === "PATCH" && parts.length === 3) {
       return patchInstitution(req, res, institutionId);
+    }
+
+    if (method === "DELETE" && parts.length === 3) {
+      return deleteInstitution(req, res, institutionId);
+    }
+
+    if (method === "PUT" && parts[3] === "map" && parts.length === 4) {
+      return updateMap(req, res, institutionId);
     }
 
     if (method === "POST" && parts[3] === "pins" && parts.length === 4) {

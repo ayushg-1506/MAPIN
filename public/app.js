@@ -92,9 +92,13 @@ function eventToPercent(event) {
   const imgRect = getImageRect();
 
   if (imgRect) {
-    /* Calculate position relative to the actual rendered image */
-    const xPx = event.clientX - rect.left - imgRect.offsetX;
-    const yPx = event.clientY - rect.top - imgRect.offsetY;
+    /* Calculate position relative to the actual rendered image, accounting for zoom */
+    const zoom = rect.width / imgRect.stageW;
+    const unscaledX = (event.clientX - rect.left) / zoom;
+    const unscaledY = (event.clientY - rect.top) / zoom;
+    
+    const xPx = unscaledX - imgRect.offsetX;
+    const yPx = unscaledY - imgRect.offsetY;
     const xPct = (xPx / imgRect.width) * 100;
     const yPct = (yPx / imgRect.height) * 100;
     return {
@@ -104,8 +108,9 @@ function eventToPercent(event) {
   }
 
   /* Fallback for PDFs */
-  const xPct = ((event.clientX - rect.left) / rect.width) * 100;
-  const yPct = ((event.clientY - rect.top) / rect.height) * 100;
+  const zoom = rect.width / rect.width; // Fallback zoom, usually 1 for PDFs without object-fit
+  const xPct = (((event.clientX - rect.left) / zoom) / (rect.width / zoom)) * 100;
+  const yPct = (((event.clientY - rect.top) / zoom) / (rect.height / zoom)) * 100;
   return {
     xPct: Math.min(100, Math.max(0, xPct)),
     yPct: Math.min(100, Math.max(0, yPct))
@@ -572,6 +577,30 @@ function bindEvents() {
 
   $("copyShareButton").addEventListener("click", copyCurrentShareLink);
   $("locateButton").addEventListener("click", startLiveLocation);
+
+  $("deleteCampusButton").addEventListener("click", async () => {
+    if (!state.current) return;
+    if (!confirm(`Are you sure you want to completely delete "${state.current.name}" and all its pins? This action cannot be undone.`)) return;
+    
+    try {
+      await api(`/api/institutions/${state.current.id}`, { method: "DELETE" });
+      showToast("Campus deleted successfully.");
+      await loadInstitutions();
+      if (state.institutions.length > 0) {
+        await selectInstitution(state.institutions[0].id);
+      } else {
+        // Clear workspace if no campuses left
+        $("currentName").textContent = "No campuses";
+        $("currentMeta").textContent = "Create one from the sidebar";
+        $("mapImage").removeAttribute("src");
+        $("pinLayer").innerHTML = "";
+        $("pinResults").innerHTML = "";
+        state.current = null;
+      }
+    } catch (error) {
+      showToast(error.message, "error");
+    }
+  });
 
   $("boundsForm").addEventListener("submit", async (event) => {
     event.preventDefault();

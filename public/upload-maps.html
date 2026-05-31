@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MAPIN - Upload Maps</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Inter, system-ui, sans-serif; background: #f4efe4; margin: 0; padding: 40px; }
+    h1 { color: #1f2f2b; margin-bottom: 8px; }
+    p { color: #65726d; margin-top: 0; }
+    .cards { display: grid; gap: 20px; max-width: 700px; }
+    .card { background: #fffdf7; border: 1px solid #d8d4c6; border-radius: 12px; padding: 24px; }
+    .card h2 { margin: 0 0 4px; font-size: 18px; color: #1f2f2b; }
+    .card .id { color: #65726d; font-size: 13px; margin-bottom: 16px; }
+    .card input[type=file] { margin-bottom: 12px; }
+    .card button { background: #177e80; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px; }
+    .card button:hover { background: #0d5759; }
+    .card .status { margin-top: 10px; font-size: 13px; font-weight: 600; }
+    .card .status.ok { color: #5e8f63; }
+    .card .status.err { color: #ad3c37; }
+    .preview { max-width: 100%; max-height: 200px; margin-top: 10px; border-radius: 8px; border: 1px solid #d8d4c6; display: none; }
+  </style>
+</head>
+<body>
+  <h1>Upload Campus Maps</h1>
+  <p>Select a map image for each campus below and click Upload.</p>
+  <div class="cards" id="cards"></div>
+
+  <script>
+    const campuses = [
+      { id: "dsce-campus", name: "Dayananda Sagar College of Engineering" },
+      { id: "reva-campus", name: "REVA University" },
+      { id: "mahe-campus", name: "Manipal Academy of Higher Education" }
+    ];
+
+    const cards = document.getElementById("cards");
+    campuses.forEach(c => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <h2>${c.name}</h2>
+        <div class="id">ID: ${c.id}</div>
+        <input type="file" accept="image/*" id="file-${c.id}">
+        <br>
+        <button onclick="upload('${c.id}')">Upload Map</button>
+        <div class="status" id="status-${c.id}"></div>
+        <img class="preview" id="preview-${c.id}">
+      `;
+      cards.appendChild(div);
+
+      document.getElementById(`file-${c.id}`).addEventListener("change", e => {
+        const file = e.target.files[0];
+        const preview = document.getElementById(`preview-${c.id}`);
+        if (file) {
+          preview.src = URL.createObjectURL(file);
+          preview.style.display = "block";
+        }
+      });
+    });
+
+    async function upload(id) {
+      const input = document.getElementById(`file-${id}`);
+      const status = document.getElementById(`status-${id}`);
+      if (!input.files[0]) { status.textContent = "Select a file first!"; status.className = "status err"; return; }
+      
+      status.textContent = "Uploading..."; status.className = "status";
+      const form = new FormData();
+      form.append("mapFile", input.files[0]);
+
+      try {
+        const res = await fetch(`/api/institutions/${id}/map`, { method: "PUT", body: form });
+        const data = await res.json();
+        if (res.ok) {
+          status.textContent = "✅ Map uploaded successfully! Refresh admin page to see it.";
+          status.className = "status ok";
+        } else {
+          status.textContent = "❌ " + (data.error || "Upload failed");
+          status.className = "status err";
+        }
+      } catch (e) {
+        status.textContent = "❌ " + e.message;
+        status.className = "status err";
+      }
+    }
+  </script>
+</body>
+</html>
