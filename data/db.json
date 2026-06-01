@@ -574,7 +574,7 @@
       "city": "Bengaluru",
       "adminName": "DSCE Sample Admin",
       "createdAt": "2026-05-15T00:00:00.000Z",
-      "updatedAt": "2026-06-01T11:13:41.873Z",
+      "updatedAt": "2026-06-01T11:29:10.209Z",
       "map": {
         "url": "/uploads/samples/dsce-campus-map-full.jpg",
         "originalName": "DSCE Campus Map Full.jpg",
@@ -1070,9 +1070,9 @@
           "roomNumber": "",
           "description": "Rock Garden",
           "nearbyLandmark": "",
-          "xPct": 40.71983771961803,
-          "yPct": 57.67731774727432,
-          "updatedAt": "2026-06-01T11:09:24.580Z"
+          "xPct": 41.29261337098808,
+          "yPct": 57.03224838047712,
+          "updatedAt": "2026-06-01T11:29:10.209Z"
         },
         {
           "id": "4589561f-8f22-4635-aad8-ef2a3d9874ce",
