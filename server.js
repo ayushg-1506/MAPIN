@@ -401,6 +401,13 @@ async function patchInstitution(req, res, id) {
   if ("adminName" in patch) institution.adminName = sanitizeText(patch.adminName, 120);
   if ("bounds" in patch) institution.bounds = cleanBounds(patch.bounds);
   if ("isPublic" in patch) institution.isPublic = !!patch.isPublic;
+  if ("gpsTransform" in patch) {
+    const t = patch.gpsTransform;
+    if (t && typeof t === "object" &&
+        [t.a1, t.b1, t.c1, t.a2, t.b2, t.c2].every(v => typeof v === "number" && Number.isFinite(v))) {
+      institution.gpsTransform = { a1: t.a1, b1: t.b1, c1: t.c1, a2: t.a2, b2: t.b2, c2: t.c2 };
+    }
+  }
   institution.updatedAt = now();
 
   await writeDb(db);

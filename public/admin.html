@@ -177,23 +177,68 @@
                 <form id="boundsForm" class="bounds-grid">
                   <label>
                     <span>North</span>
-                    <input id="northBound" type="number" step="0.000001" placeholder="13.063200">
+                    <input id="northBound" type="number" step="any" placeholder="13.063200">
                   </label>
                   <label>
                     <span>South</span>
-                    <input id="southBound" type="number" step="0.000001" placeholder="13.058000">
+                    <input id="southBound" type="number" step="any" placeholder="13.058000">
                   </label>
                   <label>
                     <span>West</span>
-                    <input id="westBound" type="number" step="0.000001" placeholder="77.472000">
+                    <input id="westBound" type="number" step="any" placeholder="77.472000">
                   </label>
                   <label>
                     <span>East</span>
-                    <input id="eastBound" type="number" step="0.000001" placeholder="77.479500">
+                    <input id="eastBound" type="number" step="any" placeholder="77.479500">
                   </label>
                   <button class="button ghost wide" type="submit">Save Boundary</button>
                 </form>
                 <p id="liveStatus" class="live-status">Live location idle</p>
+              </section>
+
+              <section class="panel">
+                <div class="section-title">
+                  <span>📐 GPS Calibration</span>
+                  <small>3-point affine</small>
+                </div>
+                <p class="muted" style="font-size:0.78rem;margin-bottom:10px;">Pick <strong>3 pins</strong> you can find on Google Maps (right-click → coordinates), enter their real GPS. This handles rotated maps correctly.</p>
+                <div class="stacked-form">
+                  <fieldset style="border:1px solid #e2e8f0;border-radius:8px;padding:10px;margin-bottom:8px;">
+                    <legend style="font-size:0.8rem;font-weight:600;color:#0ea3be;padding:0 4px;">Reference Point 1</legend>
+                    <label>
+                      <span>Pin</span>
+                      <select id="calibPin1"><option value="">-- Select a pin --</option></select>
+                    </label>
+                    <div class="form-grid" style="margin-top:6px;">
+                      <label><span>Lat</span><input id="calibLat1" type="number" step="any" placeholder="12.9078"></label>
+                      <label><span>Lng</span><input id="calibLng1" type="number" step="any" placeholder="77.5665"></label>
+                    </div>
+                  </fieldset>
+                  <fieldset style="border:1px solid #e2e8f0;border-radius:8px;padding:10px;margin-bottom:8px;">
+                    <legend style="font-size:0.8rem;font-weight:600;color:#0ea3be;padding:0 4px;">Reference Point 2</legend>
+                    <label>
+                      <span>Pin</span>
+                      <select id="calibPin2"><option value="">-- Select a pin --</option></select>
+                    </label>
+                    <div class="form-grid" style="margin-top:6px;">
+                      <label><span>Lat</span><input id="calibLat2" type="number" step="any" placeholder="12.9050"></label>
+                      <label><span>Lng</span><input id="calibLng2" type="number" step="any" placeholder="77.5700"></label>
+                    </div>
+                  </fieldset>
+                  <fieldset style="border:1px solid #e2e8f0;border-radius:8px;padding:10px;margin-bottom:8px;">
+                    <legend style="font-size:0.8rem;font-weight:600;color:#0ea3be;padding:0 4px;">Reference Point 3</legend>
+                    <label>
+                      <span>Pin</span>
+                      <select id="calibPin3"><option value="">-- Select a pin --</option></select>
+                    </label>
+                    <div class="form-grid" style="margin-top:6px;">
+                      <label><span>Lat</span><input id="calibLat3" type="number" step="any" placeholder="12.9090"></label>
+                      <label><span>Lng</span><input id="calibLng3" type="number" step="any" placeholder="77.5665"></label>
+                    </div>
+                  </fieldset>
+                  <button class="button accent wide" id="calibrateButton" type="button">🎯 Calibrate & Save</button>
+                  <p id="calibResult" class="muted" style="font-size:0.78rem;margin-top:6px;"></p>
+                </div>
               </section>
             </aside>
           </div>
@@ -204,6 +249,6 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="/auth.js"></script>
     <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
-    <script src="/app.js?v=3" defer></script>
+    <script src="/app.js?v=6" defer></script>
   </body>
 </html>

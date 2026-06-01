@@ -277,6 +277,20 @@ function selectPin(pinId) {
 }
 
 function projectLocation(position) {
+  const t = visitorState.institution?.gpsTransform;
+  if (t) {
+    /* Inverse affine: solve for xPct, yPct from lat, lng
+       lat = a1*x + b1*y + c1   →   a1*x + b1*y = lat - c1
+       lng = a2*x + b2*y + c2   →   a2*x + b2*y = lng - c2 */
+    const det = t.a1 * t.b2 - t.a2 * t.b1;
+    if (Math.abs(det) > 1e-12) {
+      const dLat = position.lat - t.c1;
+      const dLng = position.lng - t.c2;
+      const xPct = (t.b2 * dLat - t.b1 * dLng) / det;
+      const yPct = (t.a1 * dLng - t.a2 * dLat) / det;
+      return { xPct, yPct, inside: xPct >= 0 && xPct <= 100 && yPct >= 0 && yPct <= 100 };
+    }
+  }
   const bounds = visitorState.institution?.bounds;
   if (!bounds) return null;
   const xPct = ((position.lng - bounds.west) / (bounds.east - bounds.west)) * 100;
@@ -285,6 +299,12 @@ function projectLocation(position) {
 }
 
 function pinToGps(pin) {
+  const t = visitorState.institution?.gpsTransform;
+  if (t) {
+    const lat = t.a1 * pin.xPct + t.b1 * pin.yPct + t.c1;
+    const lng = t.a2 * pin.xPct + t.b2 * pin.yPct + t.c2;
+    return { lat: Number(lat.toFixed(7)), lng: Number(lng.toFixed(7)) };
+  }
   const bounds = visitorState.institution?.bounds;
   if (!bounds) return null;
   const lat = bounds.north - (pin.yPct / 100) * (bounds.north - bounds.south);

@@ -229,6 +229,7 @@ function renderCurrent() {
   renderLiveLocation();
   clearPinForm();
   updatePinLayerPosition();
+  populateCalibrationDropdowns();
 }
 
 function renderPins() {
@@ -298,6 +299,22 @@ function mediaCard(item) {
       </a>
     </article>
   `;
+}
+
+function populateCalibrationDropdowns() {
+  const pins = state.current?.pins || [];
+  const options = `<option value="">-- Select a pin --</option>` +
+    pins.map((pin) => `<option value="${escapeHtml(pin.id)}">${escapeHtml(pin.locationName)}</option>`).join("");
+  $("calibPin1").innerHTML = options;
+  $("calibPin2").innerHTML = options;
+  $("calibPin3").innerHTML = options;
+  $("calibLat1").value = "";
+  $("calibLng1").value = "";
+  $("calibLat2").value = "";
+  $("calibLng2").value = "";
+  $("calibLat3").value = "";
+  $("calibLng3").value = "";
+  $("calibResult").textContent = "";
 }
 
 function fillBoundsForm() {
@@ -663,6 +680,115 @@ function bindEvents() {
   /* Recalculate pin positions on resize */
   window.addEventListener("resize", () => {
     updatePinLayerPosition();
+  });
+
+  /* ─── GPS Calibration Tool (3-point affine transform) ─── */
+  $("calibrateButton").addEventListener("click", async () => {
+    const pin1Id = $("calibPin1").value;
+    const pin2Id = $("calibPin2").value;
+    const pin3Id = $("calibPin3").value;
+    const lat1 = parseFloat($("calibLat1").value);
+    const lng1 = parseFloat($("calibLng1").value);
+    const lat2 = parseFloat($("calibLat2").value);
+    const lng2 = parseFloat($("calibLng2").value);
+    const lat3 = parseFloat($("calibLat3").value);
+    const lng3 = parseFloat($("calibLng3").value);
+
+    if (!pin1Id || !pin2Id || !pin3Id) {
+      showToast("Select all 3 reference pins.", "error");
+      return;
+    }
+    if (new Set([pin1Id, pin2Id, pin3Id]).size < 3) {
+      showToast("Pick 3 different pins.", "error");
+      return;
+    }
+    if ([lat1, lng1, lat2, lng2, lat3, lng3].some(isNaN)) {
+      showToast("Enter valid GPS coordinates for all 3 pins.", "error");
+      return;
+    }
+
+    const p1 = state.current.pins.find((p) => p.id === pin1Id);
+    const p2 = state.current.pins.find((p) => p.id === pin2Id);
+    const p3 = state.current.pins.find((p) => p.id === pin3Id);
+    if (!p1 || !p2 || !p3) {
+      showToast("Pins not found.", "error");
+      return;
+    }
+
+    /* Affine transform: lat = a1*xPct + b1*yPct + c1
+                          lng = a2*xPct + b2*yPct + c2
+       Solve using Cramer's rule on 3x3 matrix:
+       | x1 y1 1 |   | a |   | lat1 |
+       | x2 y2 1 | × | b | = | lat2 |
+       | x3 y3 1 |   | c |   | lat3 |
+    */
+    const x1 = p1.xPct, y1 = p1.yPct;
+    const x2 = p2.xPct, y2 = p2.yPct;
+    const x3 = p3.xPct, y3 = p3.yPct;
+
+    const det = x1 * (y2 - y3) - y1 * (x2 - x3) + (x2 * y3 - x3 * y2);
+    if (Math.abs(det) < 0.001) {
+      showToast("These 3 pins are nearly collinear (on a line). Pick pins that form a triangle.", "error");
+      return;
+    }
+
+    // Solve for latitude coefficients
+    const a1 = (lat1 * (y2 - y3) - y1 * (lat2 - lat3) + (lat2 * y3 - lat3 * y2)) / det;
+    const b1 = (x1 * (lat2 - lat3) - lat1 * (x2 - x3) + (x2 * lat3 - x3 * lat2)) / det;
+    const c1 = (x1 * (y2 * lat3 - y3 * lat2) - y1 * (x2 * lat3 - x3 * lat2) + lat1 * (x2 * y3 - x3 * y2)) / det;
+
+    // Solve for longitude coefficients
+    const a2 = (lng1 * (y2 - y3) - y1 * (lng2 - lng3) + (lng2 * y3 - lng3 * y2)) / det;
+    const b2 = (x1 * (lng2 - lng3) - lng1 * (x2 - x3) + (x2 * lng3 - x3 * lng2)) / det;
+    const c2 = (x1 * (y2 * lng3 - y3 * lng2) - y1 * (x2 * lng3 - x3 * lng2) + lng1 * (x2 * y3 - x3 * y2)) / det;
+
+    // Verify: check that the transform reproduces the input coords
+    const check1Lat = a1 * x1 + b1 * y1 + c1;
+    const check1Lng = a2 * x1 + b2 * y1 + c2;
+    const err1 = Math.abs(check1Lat - lat1) + Math.abs(check1Lng - lng1);
+    if (err1 > 0.0001) {
+      showToast("Calibration math error. Please try different pins.", "error");
+      return;
+    }
+
+    const gpsTransform = { a1, b1, c1, a2, b2, c2 };
+
+    // Save to server
+    try {
+      await api(`/api/institutions/${state.current.id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ gpsTransform })
+      });
+      state.current.gpsTransform = gpsTransform;
+
+      // Also auto-calculate approximate bounds for backward compat and live dot
+      const corners = [
+        { x: 0, y: 0 }, { x: 100, y: 0 }, { x: 100, y: 100 }, { x: 0, y: 100 }
+      ];
+      const lats = corners.map(c => a1 * c.x + b1 * c.y + c1);
+      const lngs = corners.map(c => a2 * c.x + b2 * c.y + c2);
+      const bounds = {
+        north: Math.max(...lats),
+        south: Math.min(...lats),
+        east: Math.max(...lngs),
+        west: Math.min(...lngs)
+      };
+      $("northBound").value = bounds.north.toFixed(7);
+      $("southBound").value = bounds.south.toFixed(7);
+      $("westBound").value = bounds.west.toFixed(7);
+      $("eastBound").value = bounds.east.toFixed(7);
+
+      // Also save bounds
+      await api(`/api/institutions/${state.current.id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ bounds })
+      });
+
+      $("calibResult").innerHTML = `✅ Calibration saved!<br>All pin GPS coordinates will now be accurate.<br><span style="color:#0ea3be;">Transform: lat = ${a1.toFixed(8)}·x + ${b1.toFixed(8)}·y + ${c1.toFixed(7)}</span>`;
+      showToast("GPS calibration saved! All pins now have accurate directions.");
+    } catch (error) {
+      showToast(error.message, "error");
+    }
   });
 }
 
