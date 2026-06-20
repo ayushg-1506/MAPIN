@@ -179,7 +179,7 @@
       "city": "Bengaluru",
       "adminName": "RVCE Admin",
       "createdAt": "2026-05-17T16:29:01.234Z",
-      "updatedAt": "2026-05-31T11:28:09.089Z",
+      "updatedAt": "2026-06-20T14:51:01.765Z",
       "map": {
         "url": "/uploads/samples/rvce-campus-blueprint.png",
         "originalName": "rvce-campus-blueprint.png",
@@ -189,10 +189,10 @@
       },
       "media": [],
       "bounds": {
-        "north": 12.926,
-        "south": 12.92,
-        "east": 77.503,
-        "west": 77.494
+        "north": 12.9282918,
+        "south": 12.917877,
+        "east": 77.502726,
+        "west": 77.4964028
       },
       "pins": [
         {
@@ -316,10 +316,10 @@
           "roomNumber": "",
           "description": "Large sports ground for football and cricket, located in the north-east corner.",
           "nearbyLandmark": "Civil Dept, Kotak Mahindra Bank",
-          "xPct": 84.43729686874237,
-          "yPct": 14.120370672261556,
+          "xPct": 84.4125663321265,
+          "yPct": 27.3966637118889,
           "createdAt": "2026-05-22T17:00:00.000Z",
-          "updatedAt": "2026-05-31T11:25:53.073Z"
+          "updatedAt": "2026-06-20T14:51:01.765Z"
         },
         {
           "id": "rvce-telecom-dept",
@@ -574,7 +574,15 @@
           "updatedAt": "2026-05-31T11:26:28.424Z"
         }
       ],
-      "isPublic": true
+      "isPublic": true,
+      "gpsTransform": {
+        "a1": 0.00006913044179502466,
+        "b1": -0.00003501832539365442,
+        "c1": 12.921378804181039,
+        "a2": 0.00005119731877935426,
+        "b2": 0.000012034823602877118,
+        "c2": 77.49640283206303
+      }
     },
     {
       "id": "dsce-campus",
@@ -1113,7 +1121,7 @@
       "city": "Bengaluru",
       "adminName": "REVA Admin",
       "createdAt": "2026-05-31T11:00:00.000Z",
-      "updatedAt": "2026-05-31T11:52:24.780Z",
+      "updatedAt": "2026-06-20T14:55:10.088Z",
       "map": {
         "url": "/uploads/samples/reva-campus-map.jpeg",
         "originalName": "REVA Campus Map.jpeg",
@@ -1123,10 +1131,10 @@
       },
       "media": [],
       "bounds": {
-        "north": 13.1165,
-        "south": 13.113,
-        "east": 77.6345,
-        "west": 77.63
+        "north": 13.1174582,
+        "south": 13.1142738,
+        "east": 77.6372184,
+        "west": 77.6339667
       },
       "pins": [
         {
@@ -1257,7 +1265,7 @@
         },
         {
           "id": "reva-boys-hostel",
-          "locationName": "Boys Hostel",
+          "locationName": "Boys Hostel 1",
           "category": "Block",
           "buildingName": "Boys Hostel",
           "floorNumber": "",
@@ -1267,7 +1275,7 @@
           "xPct": 80.74384468346301,
           "yPct": 72.95227458102183,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T11:51:04.082Z"
+          "updatedAt": "2026-06-20T14:53:47.507Z"
         },
         {
           "id": "reva-girls-hostel",
@@ -1278,10 +1286,10 @@
           "roomNumber": "",
           "description": "Residential accommodation for female students.",
           "nearbyLandmark": "Mess, Boys Hostel",
-          "xPct": 82.29070509021858,
-          "yPct": 86.4850372313342,
+          "xPct": 81.99637708928883,
+          "yPct": 87.10801639599094,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T11:51:00.986Z"
+          "updatedAt": "2026-06-20T14:53:28.687Z"
         },
         {
           "id": "reva-mess",
@@ -1334,15 +1342,15 @@
           "roomNumber": "",
           "description": "Campus stationery and supplies shop.",
           "nearbyLandmark": "Food Court, Sir M. Visvesvaraya Block",
-          "xPct": 57.5409385821293,
-          "yPct": 59.70441328384008,
+          "xPct": 56.442401802713114,
+          "yPct": 56.538236005305556,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-05-31T11:50:52.085Z"
+          "updatedAt": "2026-06-20T14:52:07.406Z"
         },
         {
           "id": "917a3ae4-aff3-48cb-b305-3320f7694cc1",
           "createdAt": "2026-05-31T11:51:58.175Z",
-          "locationName": "Boys Hostek",
+          "locationName": "Boys Hostel 2",
           "category": "Block",
           "buildingName": "",
           "floorNumber": "",
@@ -1351,12 +1359,12 @@
           "nearbyLandmark": "",
           "xPct": 61.329594580917735,
           "yPct": 77.46838594224617,
-          "updatedAt": "2026-05-31T11:52:03.169Z"
+          "updatedAt": "2026-06-20T14:53:40.957Z"
         },
         {
           "id": "876c6ff2-a9be-4f07-884e-c607c738c092",
           "createdAt": "2026-05-31T11:52:12.792Z",
-          "locationName": "Boys Hostek",
+          "locationName": "Boys Hostel 3",
           "category": "Block",
           "buildingName": "",
           "floorNumber": "",
@@ -1365,10 +1373,18 @@
           "nearbyLandmark": "",
           "xPct": 61.169667862037336,
           "yPct": 86.89421301022372,
-          "updatedAt": "2026-05-31T11:52:18.011Z"
+          "updatedAt": "2026-06-20T14:53:56.277Z"
         }
       ],
-      "isPublic": true
+      "isPublic": true,
+      "gpsTransform": {
+        "a1": 0.0000012774692358843216,
+        "b1": -0.00003056728300350648,
+        "c1": 13.11733047924955,
+        "a2": 0.000029685380094701056,
+        "b2": 0.0000028312335393618854,
+        "c2": 77.63396672491106
+      }
     },
     {
       "id": "mahe-campus",
@@ -1784,6 +1800,11 @@
       "token": "6a47d4df-3a6b-47e8-8092-081216a2c367",
       "userId": "cbea4f3d-354b-4660-95d0-b05c6a6365b3",
       "createdAt": "2026-06-01T19:30:25.588Z"
+    },
+    {
+      "token": "0e72afc2-7cb1-4f00-802b-760abb20a51b",
+      "userId": "cbea4f3d-354b-4660-95d0-b05c6a6365b3",
+      "createdAt": "2026-06-20T14:45:30.812Z"
     }
   ]
 }
