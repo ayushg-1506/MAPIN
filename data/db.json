@@ -6,7 +6,7 @@
       "city": "Bengaluru",
       "adminName": "BMS Admin",
       "createdAt": "2026-05-22T17:00:00.000Z",
-      "updatedAt": "2026-05-31T18:58:17.842Z",
+      "updatedAt": "2026-06-20T14:44:49.687Z",
       "map": {
         "url": "/uploads/samples/bms-campus-map.png",
         "originalName": "bms-campus-map.png",
@@ -16,10 +16,10 @@
       },
       "media": [],
       "bounds": {
-        "north": 12.9425,
-        "south": 12.9375,
-        "east": 77.5685,
-        "west": 77.5625
+        "north": 12.9437372,
+        "south": 12.9401512,
+        "east": 77.9943527,
+        "west": 77.3162929
       },
       "pins": [
         {
@@ -163,7 +163,15 @@
           "updatedAt": "2026-05-31T18:58:15.263Z"
         }
       ],
-      "isPublic": true
+      "isPublic": true,
+      "gpsTransform": {
+        "a1": 0.00002336672487640842,
+        "b1": -0.000012493164748934327,
+        "c1": 12.941400558373987,
+        "a2": -0.002324179444942223,
+        "b2": 0.004456418314616095,
+        "c2": 77.54871087821972
+      }
     },
     {
       "id": "rvce-campus",
