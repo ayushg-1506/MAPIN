@@ -81,8 +81,14 @@ function shareUrl() {
   return `${window.location.origin}/google.html?id=${visitorState.institution?.id || getInstitutionId()}`;
 }
 
-// Convert local map coordinates (percentage) to GPS coordinates based on calibration boundary
+// Convert local map coordinates (percentage) to GPS coordinates using affine transform or bounds
 function pinToGps(pin) {
+  const t = visitorState.institution?.gpsTransform;
+  if (t) {
+    const lat = t.a1 * pin.xPct + t.b1 * pin.yPct + t.c1;
+    const lng = t.a2 * pin.xPct + t.b2 * pin.yPct + t.c2;
+    return { lat: Number(lat.toFixed(7)), lng: Number(lng.toFixed(7)) };
+  }
   const bounds = visitorState.institution?.bounds;
   if (!bounds) return null;
   const lat = bounds.north - (pin.yPct / 100) * (bounds.north - bounds.south);

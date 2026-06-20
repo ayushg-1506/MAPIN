@@ -66,13 +66,41 @@ function filteredPins() {
   return pins.filter((pin) => pinSearchText(pin).includes(query));
 }
 
+/* Check if a gpsTransform produces reasonable (campus-sized) GPS coordinates.
+   Some calibrations have extreme coefficients that scatter pins across huge areas. */
+function isTransformSane(institution) {
+  const t = institution?.gpsTransform;
+  if (!t || !institution.pins || institution.pins.length < 2) return false;
+  const lats = institution.pins.map(p => t.a1 * p.xPct + t.b1 * p.yPct + t.c1);
+  const lngs = institution.pins.map(p => t.a2 * p.xPct + t.b2 * p.yPct + t.c2);
+  const latSpan = Math.max(...lats) - Math.min(...lats);
+  const lngSpan = Math.max(...lngs) - Math.min(...lngs);
+  return latSpan > 0 && latSpan < 0.1 && lngSpan > 0 && lngSpan < 0.1;
+}
+
 function institutionBounds(institution) {
+  const t = institution?.gpsTransform;
+  if (t && isTransformSane(institution)) {
+    const lats = institution.pins.map(p => t.a1 * p.xPct + t.b1 * p.yPct + t.c1);
+    const lngs = institution.pins.map(p => t.a2 * p.xPct + t.b2 * p.yPct + t.c2);
+    const south = Math.min(...lats);
+    const north = Math.max(...lats);
+    const west = Math.min(...lngs);
+    const east = Math.max(...lngs);
+    return L.latLngBounds([south, west], [north, east]);
+  }
   const b = institution?.bounds;
   if (!b) return null;
   return L.latLngBounds([b.south, b.west], [b.north, b.east]);
 }
 
 function pinToLatLng(pin) {
+  const t = state.current?.gpsTransform;
+  if (t && isTransformSane(state.current)) {
+    const lat = t.a1 * pin.xPct + t.b1 * pin.yPct + t.c1;
+    const lng = t.a2 * pin.xPct + t.b2 * pin.yPct + t.c2;
+    return L.latLng(lat, lng);
+  }
   const bounds = state.current?.bounds;
   if (!bounds) return null;
   const lat = bounds.north - (pin.yPct / 100) * (bounds.north - bounds.south);
@@ -143,20 +171,16 @@ function renderCurrent() {
     /* Overlay the actual campus map image on top of the tile layer */
     const mapUrl = state.current.map && state.current.map.url;
     const mapKind = state.current.map && state.current.map.kind;
-    console.log("[MAPIN] Overlay check:", { mapUrl, mapKind, hasBounds: !!bounds });
     if (mapUrl && mapKind === "image") {
       try {
-        console.log("[MAPIN] Creating image overlay:", mapUrl, bounds.toBBoxString());
         state.imageOverlay = L.imageOverlay(mapUrl, bounds, {
           opacity: 0.95,
           interactive: false
         }).addTo(state.map);
-        console.log("[MAPIN] Image overlay added successfully");
         /* Boost overlay pane above tile pane */
         const overlayPane = state.map.getPane("overlayPane");
         if (overlayPane) {
           overlayPane.style.zIndex = "250";
-          console.log("[MAPIN] Overlay pane z-index set to 250");
         }
       } catch (err) {
         console.error("[MAPIN] Image overlay failed:", err);
@@ -327,8 +351,8 @@ function bindEvents() {
 async function init() {
   initMap();
   bindEvents();
-  state.institutions = await api("/api/institutions");
-  const initialId = new URLSearchParams(window.location.search).get("id") || "dsce-campus";
+  state.institutions = await api("/api/institutions/public");
+  const initialId = new URLSearchParams(window.location.search).get("id") || state.institutions[0]?.id || "dsce-campus";
   await selectInstitution(initialId);
 }
 
