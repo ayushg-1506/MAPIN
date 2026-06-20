@@ -590,7 +590,7 @@
       "city": "Bengaluru",
       "adminName": "DSCE Sample Admin",
       "createdAt": "2026-05-15T00:00:00.000Z",
-      "updatedAt": "2026-06-01T11:30:06.141Z",
+      "updatedAt": "2026-06-20T15:39:49.050Z",
       "map": {
         "url": "/uploads/samples/dsce-campus-map-full.jpg",
         "originalName": "DSCE Campus Map Full.jpg",
@@ -749,10 +749,10 @@
           "roomNumber": "",
           "description": "Civil Engineering / Industrial Electronics & Management",
           "nearbyLandmark": "",
-          "xPct": 40.59533847009229,
-          "yPct": 77.35000227884217,
+          "xPct": 40.36977648108873,
+          "yPct": 75.55256273296308,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-06-01T11:06:20.047Z"
+          "updatedAt": "2026-06-20T15:37:31.508Z"
         },
         {
           "id": "dsce-10-biotech",
@@ -770,17 +770,17 @@
         },
         {
           "id": "dsce-13-finearts",
-          "locationName": "13 - Fine Arts / Journalism",
+          "locationName": "13 - Business block",
           "category": "Department",
           "buildingName": "Block 13",
           "floorNumber": "",
           "roomNumber": "",
           "description": "Fine Arts / International Leader / Journalism / Junior Business",
           "nearbyLandmark": "",
-          "xPct": 25,
-          "yPct": 34,
+          "xPct": 20.612145919447368,
+          "yPct": 37.152134017560726,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-06-01T09:52:18.027Z"
+          "updatedAt": "2026-06-20T15:37:03.672Z"
         },
         {
           "id": "dsce-14-arts",
@@ -805,10 +805,10 @@
           "roomNumber": "",
           "description": "Physiology / Pharmacy",
           "nearbyLandmark": "",
-          "xPct": 24.657966872163957,
-          "yPct": 25.42905780402317,
+          "xPct": 25.006553376646963,
+          "yPct": 24.649022286606908,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-06-01T11:09:44.359Z"
+          "updatedAt": "2026-06-20T15:36:00.726Z"
         },
         {
           "id": "dsce-16-physics",
@@ -825,32 +825,18 @@
           "updatedAt": "2026-06-01T11:06:59.968Z"
         },
         {
-          "id": "dsce-17-canteen-ece",
-          "locationName": "17 - Canteen / ECE / MBA / MCA",
-          "category": "Department",
-          "buildingName": "Block 17",
-          "floorNumber": "",
-          "roomNumber": "",
-          "description": "Canteen / Electronics & Communication / MBA / MCA / MEA / Parking College",
-          "nearbyLandmark": "",
-          "xPct": 44.206139686232234,
-          "yPct": 32.401656987547256,
-          "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-06-01T11:09:49.640Z"
-        },
-        {
           "id": "dsce-18-physiotherapy",
-          "locationName": "18 - ECE",
+          "locationName": "17 - ECE",
           "category": "Department",
           "buildingName": "Block 18",
           "floorNumber": "",
           "roomNumber": "",
-          "description": "Physiotherapy Engineering",
+          "description": "",
           "nearbyLandmark": "",
-          "xPct": 30.26095081859269,
-          "yPct": 21.32020734303279,
+          "xPct": 31.64329161216951,
+          "yPct": 21.525851352243354,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-06-01T11:09:39.583Z"
+          "updatedAt": "2026-06-20T15:35:35.974Z"
         },
         {
           "id": "dsce-19-chemical",
@@ -861,10 +847,10 @@
           "roomNumber": "",
           "description": "Computer Science / Information Science",
           "nearbyLandmark": "",
-          "xPct": 39,
-          "yPct": 33,
+          "xPct": 38.20195176572814,
+          "yPct": 36.829390717717516,
           "createdAt": "2026-05-31T11:00:00.000Z",
-          "updatedAt": "2026-06-01T11:10:10.060Z"
+          "updatedAt": "2026-06-20T15:35:08.777Z"
         },
         {
           "id": "dsce-20-telecom",
@@ -1047,20 +1033,6 @@
           "xPct": 71.64398576240163,
           "yPct": 53.267070154774466,
           "updatedAt": "2026-06-01T10:59:55.430Z"
-        },
-        {
-          "id": "dsce-11-block",
-          "locationName": "11 - Block",
-          "category": "Block",
-          "buildingName": "Block 11",
-          "floorNumber": "",
-          "roomNumber": "",
-          "description": "Block 11 near Moritage Block.",
-          "nearbyLandmark": "Moritage Block, Kanakapura Road",
-          "xPct": 66,
-          "yPct": 44,
-          "createdAt": "2026-06-01T09:52:18.027Z",
-          "updatedAt": "2026-06-01T09:52:18.027Z"
         },
         {
           "id": "eabc57b9-0fff-4975-8d32-324982197c83",
